@@ -13,6 +13,7 @@ import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
 import java.lang.String;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List; 
 
@@ -141,7 +142,7 @@ public class GameWorld {
 				System.out.print("EnergyStation: ");
 			}
 			
-			System.out.print("loc=" + g.getLocation().toString());
+			System.out.print("loc=" + Arrays.toString(g.getLocation()));
 			
 			System.out.print(" color=[" + ColorUtil.red(g.getColor()) + "," + ColorUtil.green(g.getColor())
 					+ "," + ColorUtil.blue(g.getColor()) + "]");
@@ -158,7 +159,7 @@ public class GameWorld {
 			// robot specific stats
 			if (g instanceof Robot) {
 				System.out.print(" maxSpeed=" + ((Robot) g).getMaxSpeed());
-				System.out.print(" steeringDirection" + ((Robot) g).getSteeringDirection());
+				System.out.print(" steeringDirection=" + ((Robot) g).getSteeringDirection());
 				System.out.print(" energyLevel=" + ((Robot) g).getEnergyLevel());
 				System.out.print(" damageLevel=" + ((Robot) g).getDamageLevel());
 			}
@@ -172,6 +173,8 @@ public class GameWorld {
 			if (g instanceof EnergyStation) {
 				System.out.print(" capacity=" + ((EnergyStation) g).getCapacity());
 			}
+			
+			System.out.print("\n");
 		}
 	}
 	
