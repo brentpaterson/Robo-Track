@@ -4,6 +4,7 @@ import com.brentPaterson.roboTrack.GameObjects.Base;
 import com.brentPaterson.roboTrack.GameObjects.Drone;
 import com.brentPaterson.roboTrack.GameObjects.EnergyStation;
 import com.brentPaterson.roboTrack.GameObjects.GameObject;
+import com.brentPaterson.roboTrack.GameObjects.Movable;
 import com.brentPaterson.roboTrack.GameObjects.Robot;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Form;
@@ -145,12 +146,22 @@ public class GameWorld {
 			System.out.print(" color=[" + ColorUtil.red(g.getColor()) + "," + ColorUtil.green(g.getColor())
 					+ "," + ColorUtil.blue(g.getColor()) + "]");
 			
-			// heading robot/drone
-			// speed robot/drone
+			// movable specific stats
+			if (g instanceof Movable) {
+				System.out.print(" heading=" + ((Movable) g).getHeading());
+				System.out.print(" speed=" + ((Movable) g).getSpeed());
+			}
 			
-			System.out.print(" size=");
+			System.out.print(" size=" + g.getSize());
 			
 			// max speed, steering dir, energy level, damage level
+			// robot specific stats
+			if (g instanceof Robot) {
+				System.out.print(" maxSpeed=" + ((Robot) g).getMaxSpeed());
+				System.out.print(" steeringDirection" + ((Robot) g).getSteeringDirection());
+				System.out.print(" energyLevel=" + ((Robot) g).getEnergyLevel());
+				System.out.print(" damageLevel=" + ((Robot) g).getDamageLevel());
+			}
 			
 			// seqnum base
 			
