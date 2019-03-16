@@ -10,12 +10,10 @@ import com.brentPaterson.roboTrack.GameObjects.Movable;
 import com.brentPaterson.roboTrack.GameObjects.Robot;
 import com.codename1.charts.util.ColorUtil;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List; 
+import java.util.Observable; 
 
 
-public class GameWorld {
+public class GameWorld extends Observable {
 	private int lives = 3;
 	private int time = 0;
 	private int topBase = 1;
@@ -32,7 +30,8 @@ public class GameWorld {
 		}
 		
 		float[] location = {(float) (0.25 * Game.rangeX), (float) (0.25 * Game.rangeY)};
-		gameObjects.add(new Robot(location));
+		playerRobot = new Robot(location);
+		gameObjects.add(playerRobot);
 		gameObjects.add(new Base(1, location));
 		location[0] = (float) (0.15 * Game.rangeX);
 		location[1] = (float) (0.80 * Game.rangeY);
@@ -48,7 +47,7 @@ public class GameWorld {
 		gameObjects.add(new EnergyStation());
 		gameObjects.add(new EnergyStation());
 		
-		playerRobot = (Robot) gameObjects.get(0);
+		
 	}
 
 	public void accelerate() {

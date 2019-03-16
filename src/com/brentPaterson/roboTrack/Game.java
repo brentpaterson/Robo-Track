@@ -3,8 +3,7 @@ import com.codename1.ui.Form;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
-import com.codename1.ui.events.ActionEvent;
-import java.lang.String; 
+import com.codename1.ui.events.ActionEvent; 
 
 
 public class Game extends Form {
