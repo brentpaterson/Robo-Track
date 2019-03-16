@@ -40,11 +40,10 @@ public class Game extends Form {
 		myTextField.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent evt) {
 		
-				//String sCommand=myTextField.getText().toString();
-				char[] sCommand = myTextField.getText().toCharArray();
+				String sCommand=myTextField.getText().toString();
 				myTextField.clear();
 				boolean exit = false;
-				switch (sCommand[0]) {
+				switch (sCommand.charAt(0)) {
 						case 'a': // accelerate
 							gw.accelerate();
 							break;

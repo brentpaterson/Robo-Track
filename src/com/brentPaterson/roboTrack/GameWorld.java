@@ -132,11 +132,12 @@ public class GameWorld extends Observable implements IGameWorld {
 	}
 	
 	public void consoleDisplay() {
-		System.out.println("Lives: " + lives);
+		/*System.out.println("Lives: " + lives);
 		System.out.println("Time: " + time);
 		System.out.println("Top base: " + topBase);
 		System.out.println("Current energy level: " + playerRobot.getEnergyLevel());
-		System.out.println("Current damage level: " + playerRobot.getDamageLevel());
+		System.out.println("Current damage level: " + playerRobot.getDamageLevel());*/
+		this.notifyObservers();
 	}
 	
 	public void displayConsoleMap() {
