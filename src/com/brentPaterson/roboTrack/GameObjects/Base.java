@@ -11,5 +11,9 @@ public class Base extends Fixed {
 		this.sequenceNumber = sequenceNumber;
 		this.location = location;
 	}
+	
+	public int getSeqNum() {
+		return sequenceNumber;
+	}
 
 }

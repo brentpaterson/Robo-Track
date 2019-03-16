@@ -164,8 +164,14 @@ public class GameWorld {
 			}
 			
 			// seqnum base
+			if (g instanceof Base) {
+				System.out.print(" seqNum=" + ((Base) g).getSeqNum());
+			}
 			
 			// capacity energyStation
+			if (g instanceof EnergyStation) {
+				System.out.print(" capacity=" + ((EnergyStation) g).getCapacity());
+			}
 		}
 	}
 	
