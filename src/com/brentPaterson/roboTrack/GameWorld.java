@@ -7,12 +7,6 @@ import com.brentPaterson.roboTrack.GameObjects.GameObject;
 import com.brentPaterson.roboTrack.GameObjects.Movable;
 import com.brentPaterson.roboTrack.GameObjects.Robot;
 import com.codename1.charts.util.ColorUtil;
-import com.codename1.ui.Form;
-import com.codename1.ui.events.ActionListener;
-import com.codename1.ui.Label;
-import com.codename1.ui.TextField;
-import com.codename1.ui.events.ActionEvent;
-import java.lang.String;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List; 
@@ -89,6 +83,8 @@ public class GameWorld {
 		for (GameObject g : gameObjects) {
 			if (g instanceof EnergyStation && !((EnergyStation) g).isUsed()) {
 				playerRobot.incEnergyLevel(((EnergyStation) g).useStation());
+				gameObjects.add(new EnergyStation());
+				break;
 			}
 		}
 	}
@@ -176,6 +172,7 @@ public class GameWorld {
 			
 			System.out.print("\n");
 		}
+		System.out.print("\n");
 	}
 	
 	public void exit() {
