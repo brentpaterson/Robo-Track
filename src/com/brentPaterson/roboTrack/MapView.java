@@ -3,7 +3,9 @@ package com.brentPaterson.roboTrack;
 import java.util.Observable;
 import java.util.Observer;
 
-public class MapView implements Observer {
+import com.codename1.ui.Container;
+
+public class MapView extends Container implements Observer {
 	
 	public MapView(Observable myModel) {
 		myModel.addObserver(this);

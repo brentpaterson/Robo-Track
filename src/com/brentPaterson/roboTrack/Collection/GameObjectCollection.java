@@ -16,6 +16,10 @@ public class GameObjectCollection {
 		theCollection.addElement(newObject);
 	}
 	
+	public boolean remove(Object o) {
+		return theCollection.remove(o);
+	}
+	
 	public IIterator getIterator() {
 		return new GameObjectIterator();
 	}

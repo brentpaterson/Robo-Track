@@ -3,7 +3,9 @@ package com.brentPaterson.roboTrack;
 import java.util.Observable;
 import java.util.Observer;
 
-public class ScoreView implements Observer {
+import com.codename1.ui.Container;
+
+public class ScoreView extends Container implements Observer {
 	
 	public ScoreView(Observable myModel) {
 		myModel.addObserver(this);

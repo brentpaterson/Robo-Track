@@ -10,10 +10,11 @@ import com.brentPaterson.roboTrack.GameObjects.Movable;
 import com.brentPaterson.roboTrack.GameObjects.Robot;
 import com.codename1.charts.util.ColorUtil;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Observable; 
 
 
-public class GameWorld extends Observable {
+public class GameWorld extends Observable implements IGameWorld {
 	private int lives = 3;
 	private int time = 0;
 	private int topBase = 1;
@@ -210,5 +211,21 @@ public class GameWorld extends Observable {
 	
 	public Robot getPlayerRobot() {
 		return playerRobot;
+	}
+
+	@Override
+	public IIterator getIterator() {
+		return gameObjects.getIterator();
+	}
+
+	@Override
+	public void addGameObject(GameObject o) {
+		gameObjects.add(o);
+		
+	}
+
+	@Override
+	public boolean removeGameObject(GameObject o) {
+		return gameObjects.remove(o);
 	}
 }

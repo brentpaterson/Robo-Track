@@ -13,7 +13,7 @@ public class NonPlayerRobot extends Robot {
 	
 	public NonPlayerRobot() {
 		size = 40;
-		color = ColorUtil.BLUE;
+		color = ColorUtil.YELLOW;
 		
 		steeringDirection = 0;
 		maximumSpeed = 50;
