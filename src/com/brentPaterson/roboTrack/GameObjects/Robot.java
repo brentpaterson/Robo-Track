@@ -26,6 +26,10 @@ public class Robot extends Movable implements ISteerable {
 		heading = 0;
 		speed = 1;
 	}
+	
+	public Robot() {
+		
+	}
 
 	public void changeDirection(int amount) {
 		// + amount means to the right
