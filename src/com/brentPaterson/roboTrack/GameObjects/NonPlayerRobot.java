@@ -27,5 +27,7 @@ public class NonPlayerRobot extends Robot {
 		Random rand = new Random();
 		int angle = rand.nextInt(360);
 		int distance = rand.nextInt(size*3) + size*3; // anywhere from 120-240 units away
+		location[0] = (float) Math.cos(Math.toRadians(angle)) * distance;
+		location[1] = (float) Math.sin(Math.toRadians(angle)) * distance;
 	}
 }
