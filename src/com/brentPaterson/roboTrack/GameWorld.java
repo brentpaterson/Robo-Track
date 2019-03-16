@@ -8,6 +8,7 @@ import com.brentPaterson.roboTrack.GameObjects.Movable;
 import com.brentPaterson.roboTrack.GameObjects.Robot;
 import com.codename1.charts.util.ColorUtil;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List; 
 
@@ -21,8 +22,6 @@ public class GameWorld {
 	Robot playerRobot;
 	
 	List<GameObject> gameObjects = new LinkedList<>();
-	
-	
 	
 	public void init() {
 		if (lives <= 0) {
