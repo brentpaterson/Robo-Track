@@ -5,6 +5,7 @@ import com.brentPaterson.roboTrack.GameObjects.Drone;
 import com.brentPaterson.roboTrack.GameObjects.EnergyStation;
 import com.brentPaterson.roboTrack.GameObjects.GameObject;
 import com.brentPaterson.roboTrack.GameObjects.Robot;
+import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Form;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.Label;
@@ -132,12 +133,17 @@ public class GameWorld {
 			if (g instanceof Base) {
 				System.out.print("Base: ");
 			} else if (g instanceof Robot) {
-				
+				System.out.print("Robot: ");
 			} else if (g instanceof Drone) {
-				
+				System.out.print("Drone: ");
 			} else if (g instanceof EnergyStation) {
-				
+				System.out.print("EnergyStation: ");
 			}
+			
+			System.out.print("loc=" + g.getLocation().toString());
+			
+			System.out.print(" color=[" + ColorUtil.red(g.getColor()) + "," + ColorUtil.green(g.getColor())
+					+ "," + ColorUtil.blue(g.getColor()) + "]");
 		}
 	}
 	
