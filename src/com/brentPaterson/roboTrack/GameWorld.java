@@ -8,10 +8,14 @@ import com.brentPaterson.roboTrack.GameObjects.EnergyStation;
 import com.brentPaterson.roboTrack.GameObjects.GameObject;
 import com.brentPaterson.roboTrack.GameObjects.Movable;
 import com.brentPaterson.roboTrack.GameObjects.Robot;
+import com.brentPaterson.roboTrack.GameWorldProxy.GameWorldProxy;
+import com.brentPaterson.roboTrack.GameWorldProxy.IGameWorld;
 import com.codename1.charts.util.ColorUtil;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.Observable; 
+import java.util.Observable;
+import java.util.Observer;
+import java.util.Vector; 
 
 
 public class GameWorld extends Observable implements IGameWorld {
@@ -23,6 +27,8 @@ public class GameWorld extends Observable implements IGameWorld {
 	private Robot playerRobot;
 	
 	private GameObjectCollection gameObjects = new GameObjectCollection();
+	
+	private Vector<Observer> myObserverList = new Vector<Observer>();
 	
 	public void init() {
 		if (lives <= 0) {
@@ -227,5 +233,16 @@ public class GameWorld extends Observable implements IGameWorld {
 	@Override
 	public boolean removeGameObject(GameObject o) {
 		return gameObjects.remove(o);
+	}
+	
+	public void addObserver(Observer o) {
+		myObserverList.add(o);
+	}
+	
+	public void notifyObservers() {
+		GameWorldProxy proxy = new GameWorldProxy(this);
+		for (Observer o : myObserverList) {
+			o.update(proxy, null);
+		}
 	}
 }
