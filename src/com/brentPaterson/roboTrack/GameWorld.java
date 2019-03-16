@@ -19,9 +19,9 @@ public class GameWorld extends Observable {
 	private int topBase = 1;
 	
 	// game objects
-	Robot playerRobot;
+	private Robot playerRobot;
 	
-	GameObjectCollection gameObjects = new GameObjectCollection();
+	private GameObjectCollection gameObjects = new GameObjectCollection();
 	
 	public void init() {
 		if (lives <= 0) {
@@ -189,5 +189,26 @@ public class GameWorld extends Observable {
 	
 	public void invalidCommand() {
 		System.out.println("INVALID ENTRY");
+	}
+	
+	// getters for view
+	public int getLives() {
+		return lives;
+	}
+	
+	public int getTime() {
+		return time;
+	}
+	
+	public int getTopBase() {
+		return topBase;
+	}
+	
+	public GameObjectCollection getCollection() {
+		return gameObjects;
+	}
+	
+	public Robot getPlayerRobot() {
+		return playerRobot;
 	}
 }

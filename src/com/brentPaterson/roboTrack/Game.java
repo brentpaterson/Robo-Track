@@ -13,9 +13,14 @@ public class Game extends Form {
 	public final static float rangeY = 768;
 	
 	private GameWorld gw;
+	private MapView mv;
+	private ScoreView sv;
 	
 	public Game() {
 		gw = new GameWorld();
+		mv = new MapView(gw);
+		sv = new ScoreView(gw);
+		
 		gw.init();
 		play();
 	}
