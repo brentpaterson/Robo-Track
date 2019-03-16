@@ -3,12 +3,15 @@ package com.brentPaterson.roboTrack.Collection;
 import java.util.Vector;
 
 public class GameObjectCollection {
+	@SuppressWarnings("rawtypes")
 	private Vector theCollection;
 	
+	@SuppressWarnings("rawtypes")
 	public GameObjectCollection() {
 		theCollection = new Vector();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public void add(Object newObject) {
 		theCollection.addElement(newObject);
 	}

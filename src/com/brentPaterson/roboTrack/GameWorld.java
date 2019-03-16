@@ -1,5 +1,7 @@
 package com.brentPaterson.roboTrack;
 
+import com.brentPaterson.roboTrack.Collection.GameObjectCollection;
+import com.brentPaterson.roboTrack.Collection.IIterator;
 import com.brentPaterson.roboTrack.GameObjects.Base;
 import com.brentPaterson.roboTrack.GameObjects.Drone;
 import com.brentPaterson.roboTrack.GameObjects.EnergyStation;
@@ -21,7 +23,7 @@ public class GameWorld {
 	// game objects
 	Robot playerRobot;
 	
-	List<GameObject> gameObjects = new LinkedList<>();
+	GameObjectCollection gameObjects = new GameObjectCollection();
 	
 	public void init() {
 		if (lives <= 0) {
@@ -79,7 +81,9 @@ public class GameWorld {
 	}
 	
 	public void energyCollision() {
-		for (GameObject g : gameObjects) {
+		IIterator theElements = gameObjects.getIterator();
+		while(theElements.hasNext()) {
+			GameObject g = (GameObject) theElements.getNext();
 			if (g instanceof EnergyStation && !((EnergyStation) g).isUsed()) {
 				playerRobot.incEnergyLevel(((EnergyStation) g).useStation());
 				gameObjects.add(new EnergyStation());
@@ -98,7 +102,9 @@ public class GameWorld {
 		
 		playerRobot.updateHeading();
 		
-		for (GameObject g : gameObjects) {
+		IIterator theElements = gameObjects.getIterator();
+		while(theElements.hasNext()) {
+			GameObject g = (GameObject) theElements.getNext();
 			if (g instanceof Drone) {
 				((Drone) g).updateHeading();
 			}
@@ -106,7 +112,9 @@ public class GameWorld {
 		
 		playerRobot.move();
 		
-		for (GameObject g : gameObjects) {
+		theElements = gameObjects.getIterator();
+		while(theElements.hasNext()) {
+			GameObject g = (GameObject) theElements.getNext();
 			if (g instanceof Drone) {
 				((Drone) g).move();
 			}
@@ -126,7 +134,9 @@ public class GameWorld {
 	}
 	
 	public void displayConsoleMap() {
-		for (GameObject g : gameObjects) {
+		IIterator theElements = gameObjects.getIterator();
+		while(theElements.hasNext()) {
+			GameObject g = (GameObject) theElements.getNext();
 			if (g instanceof Base) {
 				System.out.print("Base: ");
 			} else if (g instanceof Robot) {
