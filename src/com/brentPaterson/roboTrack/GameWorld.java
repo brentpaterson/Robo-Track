@@ -3,13 +3,16 @@ package com.brentPaterson.roboTrack;
 import com.brentPaterson.roboTrack.GameObjects.Base;
 import com.brentPaterson.roboTrack.GameObjects.Drone;
 import com.brentPaterson.roboTrack.GameObjects.EnergyStation;
+import com.brentPaterson.roboTrack.GameObjects.GameObject;
 import com.brentPaterson.roboTrack.GameObjects.Robot;
 import com.codename1.ui.Form;
 import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
 import com.codename1.ui.events.ActionEvent;
-import java.lang.String; 
+import java.lang.String;
+import java.util.LinkedList;
+import java.util.List; 
 
 
 public class GameWorld {
@@ -18,10 +21,9 @@ public class GameWorld {
 	private int topBase = 1;
 	
 	// game objects
-	Base baseOne, baseTwo, baseThree, baseFour;
 	Robot playerRobot;
-	Drone droneOne, droneTwo;
-	EnergyStation esOne, esTwo;
+	
+	List<GameObject> gameObjects = new LinkedList<>();
 	
 	
 	
@@ -31,29 +33,24 @@ public class GameWorld {
 			exit();
 		}
 		
-		// create the bases with hard defined locations
 		float[] location = {(float) (0.25 * Game.rangeX), (float) (0.25 * Game.rangeY)};
-		baseOne = new Base(1, location);
+		gameObjects.add(new Robot(location));
+		gameObjects.add(new Base(1, location));
 		location[0] = (float) (0.15 * Game.rangeX);
 		location[1] = (float) (0.80 * Game.rangeY);
-		baseTwo = new Base(2, location);
+		gameObjects.add(new Base(2, location));
 		location[0] = (float) (0.75 * Game.rangeX);
 		location[1] = (float) (0.75 * Game.rangeY);
-		baseThree = new Base(3, location);
+		gameObjects.add(new Base(3, location));
 		location[0] = (float) (0.85 * Game.rangeX);
 		location[1] = (float) (0.30 * Game.rangeY);
-		baseFour = new Base(4, location);
+		gameObjects.add(new Base(4, location));
+		gameObjects.add(new Drone());
+		gameObjects.add(new Drone());
+		gameObjects.add(new EnergyStation());
+		gameObjects.add(new EnergyStation());
 		
-		// create robot (currently only player robot)
-		playerRobot = new Robot(baseOne.getLocation());
-		
-		// create drones
-		droneOne = new Drone();
-		droneTwo = new Drone();
-		
-		// create energy stations
-		esOne = new EnergyStation();
-		esTwo = new EnergyStation();
+		playerRobot = (Robot) gameObjects.get(0);
 	}
 
 	public void accelerate() {
@@ -86,10 +83,11 @@ public class GameWorld {
 	}
 	
 	public void energyCollision() {
-		playerRobot.incEnergyLevel(esOne.getSize()); // input to know which ES to drain?
-		
-		// create new energy station
-		// fade original
+		for (GameObject g : gameObjects) {
+			if (g instanceof EnergyStation && !((EnergyStation) g).isUsed()) {
+				playerRobot.incEnergyLevel(((EnergyStation) g).useStation());
+			}
+		}
 	}
 	
 	public void tick() {
@@ -101,12 +99,20 @@ public class GameWorld {
 		}
 		
 		playerRobot.updateHeading();
-		droneOne.updateHeading();
-		droneTwo.updateHeading();
+		
+		for (GameObject g : gameObjects) {
+			if (g instanceof Drone) {
+				((Drone) g).updateHeading();
+			}
+		}
 		
 		playerRobot.move();
-		droneOne.move();
-		droneTwo.move();
+		
+		for (GameObject g : gameObjects) {
+			if (g instanceof Drone) {
+				((Drone) g).move();
+			}
+		}
 		
 		playerRobot.decEnergyLevel();
 			
@@ -122,26 +128,17 @@ public class GameWorld {
 	}
 	
 	public void displayConsoleMap() {
-		System.out.println("Base: loc=" + baseOne.getLocation().toString() + " color=" + baseOne.getColor() + " size=" + baseOne.getSize() + " seqNum=1");
-		System.out.println("Base: loc=" + baseTwo.getLocation().toString() + " color=" + baseTwo.getColor() + " size=" + baseTwo.getSize() + " seqNum=2");
-		System.out.println("Base: loc=" + baseThree.getLocation().toString() + " color=" + baseThree.getColor() + " size=" + baseThree.getSize() + " seqNum=3");
-		System.out.println("Base: loc=" + baseFour.getLocation().toString() + " color=" + baseFour.getColor() + " size=" + baseFour.getSize() + " seqNum=4");
-		
-		System.out.println("Robot: loc=" + playerRobot.getLocation().toString() + " color=" + playerRobot.getColor()
-				+ " heading=" + playerRobot.getHeading() + " speed=" + playerRobot.getSpeed() + " size=" + playerRobot.getSize()
-				+ " maxSpeed=" + playerRobot.getMaxSpeed() + " steeringDirection=" + playerRobot.getSteeringDirection()
-				+ " energeyLevel=" + playerRobot.getEnergyLevel() + " damageLevel=" + playerRobot.getDamageLevel());
-		
-		System.out.println("Drone: loc=" + droneOne.getLocation().toString() + " color=" + droneOne.getColor()
-				+ " heading=" + droneOne.getHeading() + " speed=" + droneOne.getSpeed() + " size=" + droneOne.getSize());
-		System.out.println("Drone: loc=" + droneTwo.getLocation().toString() + " color=" + droneTwo.getColor()
-				+ " heading=" + droneTwo.getHeading() + " speed=" + droneTwo.getSpeed() + " size=" + droneTwo.getSize());
-		
-		System.out.println("EnergyStation: loc=" + esOne.getLocation().toString() + " color=" + esOne.getColor()
-				+ " size=" + esOne.getSize() + " capacity=" + esOne.getSize());
-		System.out.println("EnergyStation: loc=" + esTwo.getLocation().toString() + " color=" + esTwo.getColor()
-				+ " size=" + esTwo.getSize() + " capacity=" + esTwo.getSize());
-	
+		for (GameObject g : gameObjects) {
+			if (g instanceof Base) {
+				System.out.print("Base: ");
+			} else if (g instanceof Robot) {
+				
+			} else if (g instanceof Drone) {
+				
+			} else if (g instanceof EnergyStation) {
+				
+			}
+		}
 	}
 	
 	public void exit() {
