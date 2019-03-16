@@ -155,6 +155,7 @@ public class GameWorld {
 			// seqnum base
 			
 			// capacity energyStation
+		}
 	}
 	
 	public void exit() {
