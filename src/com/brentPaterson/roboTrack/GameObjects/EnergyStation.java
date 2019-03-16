@@ -30,8 +30,12 @@ public class EnergyStation extends Fixed {
 		return tempCapacity;
 	}
 	
+	public int getCapacity() {
+		return capacity;
+	}
+	
 	public boolean isUsed() {
-		return isUsed();
+		return used;
 	}
 
 }

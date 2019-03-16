@@ -144,7 +144,17 @@ public class GameWorld {
 			
 			System.out.print(" color=[" + ColorUtil.red(g.getColor()) + "," + ColorUtil.green(g.getColor())
 					+ "," + ColorUtil.blue(g.getColor()) + "]");
-		}
+			
+			// heading robot/drone
+			// speed robot/drone
+			
+			System.out.print(" size=");
+			
+			// max speed, steering dir, energy level, damage level
+			
+			// seqnum base
+			
+			// capacity energyStation
 	}
 	
 	public void exit() {
