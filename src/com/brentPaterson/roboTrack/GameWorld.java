@@ -213,6 +213,15 @@ public class GameWorld extends Observable implements IGameWorld {
 		System.out.println("INVALID ENTRY");
 	}
 	
+	public void setSoundToggle() {
+		if (soundStatus.contentEquals("OFF"))
+			soundStatus = "ON";
+		else
+			soundStatus = "OFF";
+		
+		notifyObservers();
+	}
+	
 	// getters for view
 	public int getLives() {
 		return lives;

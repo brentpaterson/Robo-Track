@@ -6,6 +6,7 @@ import com.brentPaterson.roboTrack.Commands.CollideBaseCommand;
 import com.brentPaterson.roboTrack.Commands.CollideDroneCommand;
 import com.brentPaterson.roboTrack.Commands.CollideESCommand;
 import com.brentPaterson.roboTrack.Commands.CollideNPRCommand;
+import com.brentPaterson.roboTrack.Commands.HelpCommand;
 import com.brentPaterson.roboTrack.Commands.TickCommand;
 import com.brentPaterson.roboTrack.Commands.TurnLeftCommand;
 import com.brentPaterson.roboTrack.Commands.TurnRightCommand;
@@ -50,6 +51,7 @@ public class Game extends Form {
 	private TickCommand tickCommand;
 	private TurnLeftCommand turnLeftCommand;
 	private TurnRightCommand turnRightCommand;
+	private HelpCommand helpCommand;
 	
 	public Game() {
 		gw = new GameWorld();
@@ -62,7 +64,12 @@ public class Game extends Form {
 		
 		initializeCommands();
 		
-		// create other containers
+		/*********************************************************
+		 * 
+		 * Containers
+		 * 
+		 *********************************************************/
+		
 		westContainer = new Container();
 		eastContainer = new Container();
 		southContainer = new Container();
@@ -76,9 +83,14 @@ public class Game extends Form {
 		southContainer.getAllStyles().setBorder(Border.createLineBorder(4, ColorUtil.BLUE));
 		eastContainer.getAllStyles().setBorder(Border.createLineBorder(4, ColorUtil.BLUE));
 		
+		/*********************************************************
+		 * 
+		 * Buttons && key bindings
+		 * 
+		 *********************************************************/
+		
 		createButtons();
 				
-		// adding buttons
 		westContainer.add(accelerateButton);
 		westContainer.add(turnLeft);
 		westContainer.add(changeStrats);
@@ -90,15 +102,32 @@ public class Game extends Form {
 		southContainer.add(collideDrone);
 		southContainer.add(tick);
 		
-		// add toolbar
+		createKeyListeners();
+		
+		
+		/*********************************************************
+		 * 
+		 * Toolbar
+		 * 
+		 *********************************************************/
 		Toolbar myToolbar = new Toolbar();
 		myToolbar.setUIID("mainToolbar");
 		myToolbar.getAllStyles().setBorder(Border.createLineBorder(4, ColorUtil.BLUE));
 		this.setToolbar(myToolbar);	
 		myToolbar.setTitle("Robo-Track");
-		myToolbar.addCommandToSideMenu(accelerateCommand);
 		
-		// adding containers to regions
+		// side menu commands
+		myToolbar.addCommandToSideMenu(accelerateCommand);
+		myToolbar.addCommandToSideMenu(soundToggleCommand);
+		
+		// other commands
+		myToolbar.addCommandToRightBar(helpCommand);
+		
+		/*********************************************************
+		 * 
+		 * Implementing containers, intializing
+		 * 
+		 *********************************************************/
 		System.out.println("Adding mapview and scoreview");
 		this.add(BorderLayout.CENTER, mv);
 		this.add(BorderLayout.NORTH, sv);
@@ -106,15 +135,18 @@ public class Game extends Form {
 		this.add(BorderLayout.SOUTH, southContainer);
 		this.add(BorderLayout.EAST, eastContainer);
 		
-		createKeyListeners();
-		
 		this.show();
 		
 		
 		gw.init();
 	}
 	
-	// helper functions
+	/*********************************************************
+	 * 
+	 * Helper Functions
+	 * 
+	 *********************************************************/
+	
 	public void createButtons() {
 		// initialize buttons
 		// left container buttons
@@ -188,7 +220,8 @@ public class Game extends Form {
 		collideBaseCommand = new CollideBaseCommand(gw);
 		collideESCommand = new CollideESCommand(gw);
 		collideDroneCommand = new CollideDroneCommand(gw);
-		tickCommand = new TickCommand(gw);	
+		tickCommand = new TickCommand(gw);
+		helpCommand = new HelpCommand(gw);
 	}
 
 }
