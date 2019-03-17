@@ -1,5 +1,14 @@
 package com.brentPaterson.roboTrack;
 import com.brentPaterson.roboTrack.Commands.AccelerateCommand;
+import com.brentPaterson.roboTrack.Commands.BrakeCommand;
+import com.brentPaterson.roboTrack.Commands.ChangeStratsCommand;
+import com.brentPaterson.roboTrack.Commands.CollideBaseCommand;
+import com.brentPaterson.roboTrack.Commands.CollideDroneCommand;
+import com.brentPaterson.roboTrack.Commands.CollideESCommand;
+import com.brentPaterson.roboTrack.Commands.CollideNPRCommand;
+import com.brentPaterson.roboTrack.Commands.TickCommand;
+import com.brentPaterson.roboTrack.Commands.TurnLeftCommand;
+import com.brentPaterson.roboTrack.Commands.TurnRightCommand;
 import com.brentPaterson.roboTrack.Views.MapView;
 import com.brentPaterson.roboTrack.Views.ScoreView;
 import com.codename1.charts.util.ColorUtil;
@@ -32,6 +41,15 @@ public class Game extends Form {
 	
 	// commands
 	private AccelerateCommand accelerateCommand;
+	private BrakeCommand brakeCommand;
+	private ChangeStratsCommand changeStratsCommand;
+	private CollideBaseCommand collideBaseCommand;
+	private CollideDroneCommand collideDroneCommand;
+	private CollideESCommand collideESCommand;
+	private CollideNPRCommand collideNPRCommand;
+	private TickCommand tickCommand;
+	private TurnLeftCommand turnLeftCommand;
+	private TurnRightCommand turnRightCommand;
 	
 	public Game() {
 		gw = new GameWorld();
@@ -126,6 +144,15 @@ public class Game extends Form {
 	
 	public void setButtonCommands() {
 		accelerateButton.setCommand(accelerateCommand);
+		turnLeft.setCommand(turnLeftCommand);
+		changeStrats.setCommand(changeStratsCommand);
+		brake.setCommand(brakeCommand);
+		turnRight.setCommand(turnRightCommand);
+		collideNPR.setCommand(collideNPRCommand);
+		collideBase.setCommand(collideBaseCommand);
+		collideES.setCommand(collideESCommand);
+		collideDrone.setCommand(collideDroneCommand);
+		tick.setCommand(tickCommand);
 	}
 	
 	public void setButtonStyles(Button b) {
