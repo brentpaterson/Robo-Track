@@ -19,9 +19,10 @@ import java.util.Vector;
 
 
 public class GameWorld extends Observable implements IGameWorld {
-	private int lives = 3;
-	private int time = 0;
-	private int topBase = 1;
+	private int lives;
+	private int time;
+	private int topBase;
+	private String soundStatus;
 	
 	// game objects
 	private Robot playerRobot;
@@ -29,6 +30,13 @@ public class GameWorld extends Observable implements IGameWorld {
 	private GameObjectCollection gameObjects = new GameObjectCollection();
 	
 	private Vector<Observer> myObserverList = new Vector<Observer>();
+	
+	public GameWorld() {
+		lives = 3;
+		time = 0;
+		topBase = 1;
+		soundStatus = "OFF";
+	}
 	
 	public void init() {
 		if (lives <= 0) {
