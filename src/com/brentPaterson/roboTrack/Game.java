@@ -1,4 +1,5 @@
 package com.brentPaterson.roboTrack;
+import com.brentPaterson.roboTrack.Commands.AccelerateCommand;
 import com.brentPaterson.roboTrack.Views.MapView;
 import com.brentPaterson.roboTrack.Views.ScoreView;
 import com.codename1.charts.util.ColorUtil;
@@ -27,7 +28,10 @@ public class Game extends Form {
 	private ScoreView sv;
 	private Container westContainer, eastContainer, southContainer;
 	private Button accelerateButton, turnLeft, turnRight, changeStrats, 
-			decelerate, collideNPR, collideBase, collideES, collideDrone, tick;
+			brake, collideNPR, collideBase, collideES, collideDrone, tick;
+	
+	// commands
+	private AccelerateCommand accelerateCommand;
 	
 	public Game() {
 		gw = new GameWorld();
@@ -37,6 +41,8 @@ public class Game extends Form {
 		// create border layout
 		System.out.println("Creating BorderLayout");
 		this.setLayout(new BorderLayout());
+		
+		initializeCommands();
 		
 		// create other containers
 		westContainer = new Container();
@@ -52,37 +58,13 @@ public class Game extends Form {
 		southContainer.getAllStyles().setBorder(Border.createLineBorder(4, ColorUtil.BLUE));
 		eastContainer.getAllStyles().setBorder(Border.createLineBorder(4, ColorUtil.BLUE));
 		
-		// initialize buttons
-		// left container buttons
-		accelerateButton = new Button("Accelerate");
-		turnLeft = new Button("Left");
-		changeStrats = new Button("Change Strategies");
-		// right container buttons
-		decelerate = new Button("Break");
-		turnRight = new Button("Right");
-		// bottom container buttons
-		collideNPR = new Button("Collide with NPR");
-		collideBase = new Button("Collide with Base");
-		collideES = new Button("Collide with Energy Station");
-		collideDrone = new Button("Collide with Drone");
-		tick = new Button("Tick");
-		
-		setButtonStyles(accelerateButton);
-		setButtonStyles(turnLeft);
-		setButtonStyles(changeStrats);
-		setButtonStyles(decelerate);
-		setButtonStyles(turnRight);
-		setButtonStyles(collideNPR);
-		setButtonStyles(collideBase);
-		setButtonStyles(collideES);
-		setButtonStyles(collideDrone);
-		setButtonStyles(tick);
+		createButtons();
 				
 		// adding buttons
 		westContainer.add(accelerateButton);
 		westContainer.add(turnLeft);
 		westContainer.add(changeStrats);
-		eastContainer.add(decelerate);
+		eastContainer.add(brake);
 		eastContainer.add(turnRight);
 		southContainer.add(collideNPR);
 		southContainer.add(collideBase);
@@ -105,10 +87,45 @@ public class Game extends Form {
 		this.add(BorderLayout.SOUTH, southContainer);
 		this.add(BorderLayout.EAST, eastContainer);
 		
+		createKeyListeners();
+		
 		this.show();
 		
 		
 		gw.init();
+	}
+	public void createButtons() {
+		// initialize buttons
+		// left container buttons
+		accelerateButton = new Button("Accelerate");
+		turnLeft = new Button("Left");
+		changeStrats = new Button("Change Strategies");
+		// right container buttons
+		brake = new Button("Brake");
+		turnRight = new Button("Right");
+		// bottom container buttons
+		collideNPR = new Button("Collide with NPR");
+		collideBase = new Button("Collide with Base");
+		collideES = new Button("Collide with Energy Station");
+		collideDrone = new Button("Collide with Drone");
+		tick = new Button("Tick");
+		
+		setButtonCommands();
+		
+		setButtonStyles(accelerateButton);
+		setButtonStyles(turnLeft);
+		setButtonStyles(changeStrats);
+		setButtonStyles(brake);
+		setButtonStyles(turnRight);
+		setButtonStyles(collideNPR);
+		setButtonStyles(collideBase);
+		setButtonStyles(collideES);
+		setButtonStyles(collideDrone);
+		setButtonStyles(tick);
+	}
+	
+	public void setButtonCommands() {
+		accelerateButton.setCommand(accelerateCommand);
 	}
 	
 	public void setButtonStyles(Button b) {
@@ -117,6 +134,14 @@ public class Game extends Form {
 		b.getAllStyles().setFgColor(ColorUtil.LTGRAY);
 		b.getAllStyles().setPadding(TOP, 1);
   		b.getAllStyles().setPadding(BOTTOM, 1);
+	}
+	
+	public void createKeyListeners() {
+		addKeyListener('a', accelerateCommand);
+	}
+	
+	public void initializeCommands() {
+		accelerateCommand = new AccelerateCommand(gw);
 	}
 	
 	@SuppressWarnings("rawtypes")

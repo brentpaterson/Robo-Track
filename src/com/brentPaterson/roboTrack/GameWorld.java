@@ -73,7 +73,12 @@ public class GameWorld extends Observable implements IGameWorld {
 		playerRobot.changeDirection(5);
 	}
 	
-	public void collision() {
+	public void collisionNPR() {
+		playerRobot.takeDamage(10);
+		// damage NPR
+	}
+	
+	public void collisionDrone() {
 		playerRobot.takeDamage(10);
 	}
 	
