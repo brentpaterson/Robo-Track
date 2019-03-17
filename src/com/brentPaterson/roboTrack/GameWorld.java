@@ -134,6 +134,7 @@ public class GameWorld extends Observable implements IGameWorld {
 		playerRobot.decEnergyLevel();
 			
 		time++;
+		notifyObservers();
 	}
 	
 	public void consoleDisplay() {

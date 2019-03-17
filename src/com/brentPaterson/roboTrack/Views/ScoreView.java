@@ -31,11 +31,19 @@ public class ScoreView extends Container implements Observer {
 		System.out.println("Initializing ScoreView");
 		this.setLayout(new FlowLayout(CENTER));
 		this.getAllStyles().setBorder(Border.createLineBorder(4, ColorUtil.BLUE));
-		lives = new Label("Lives: 3");
-		time = new Label("Time: 0");
-		topBase = new Label("Top base: 1");
-		energyLevel = new Label("Energy Level: 50");
-		damageLevel = new Label("Damage Level: 0");
+		lives = new Label("Lives: 3  ");
+		time = new Label("Time: 0  ");
+		topBase = new Label("Top base: 1  ");
+		energyLevel = new Label("Energy Level: 50 ");
+		damageLevel = new Label("Damage Level: 0  ");
+		
+		// set padding
+		lives.getAllStyles().setPadding(RIGHT, 5);
+		time.getAllStyles().setPadding(RIGHT, 5);
+		topBase.getAllStyles().setPadding(RIGHT, 5);
+		energyLevel.getAllStyles().setPadding(RIGHT, 5);
+		damageLevel.getAllStyles().setPadding(RIGHT, 5);		
+		
 		this.add(lives);
 		this.add(time);
 		this.add(topBase);
@@ -52,6 +60,12 @@ public class ScoreView extends Container implements Observer {
 		System.out.println("Top base: " + ((GameWorldProxy) observable).getTopBase());
 		System.out.println("Current energy level: " + ((GameWorldProxy) observable).getPlayerRobot().getEnergyLevel());
 		System.out.println("Current damage level: " + ((GameWorldProxy) observable).getPlayerRobot().getDamageLevel());
+		
+		lives.setText("Lives: " + ((GameWorldProxy) observable).getLives());
+		time.setText("Time: " + ((GameWorldProxy) observable).getTime());
+		topBase.setText("Top Base: " + ((GameWorldProxy) observable).getTopBase());
+		energyLevel.setText("Energy Level: " + ((GameWorldProxy) observable).getPlayerRobot().getEnergyLevel());
+		damageLevel.setText("Damage Level: " + ((GameWorldProxy) observable).getPlayerRobot().getDamageLevel());
 	}
 
 }

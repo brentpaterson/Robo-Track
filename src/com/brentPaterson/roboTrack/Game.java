@@ -165,6 +165,14 @@ public class Game extends Form {
 	
 	public void createKeyListeners() {
 		addKeyListener('a', accelerateCommand);
+		addKeyListener('b', brakeCommand);
+		addKeyListener('l', turnLeftCommand);
+		addKeyListener('r', turnRightCommand);
+		addKeyListener('c', collideNPRCommand);
+		addKeyListener('e', collideESCommand);
+		addKeyListener('g', collideDroneCommand);
+		addKeyListener('t', tickCommand);
+		
 	}
 	
 	public void initializeCommands() {
