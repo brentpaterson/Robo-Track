@@ -1,8 +1,18 @@
 package com.brentPaterson.roboTrack;
+import com.brentPaterson.roboTrack.Views.MapView;
+import com.brentPaterson.roboTrack.Views.ScoreView;
+import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Button;
+import com.codename1.ui.Container;
 import com.codename1.ui.Form;
 import com.codename1.ui.events.ActionListener;
+import com.codename1.ui.layouts.BorderLayout;
+import com.codename1.ui.layouts.BoxLayout;
+import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.plaf.Border;
 import com.codename1.ui.Label;
 import com.codename1.ui.TextField;
+import com.codename1.ui.Toolbar;
 import com.codename1.ui.events.ActionEvent; 
 
 
@@ -15,14 +25,98 @@ public class Game extends Form {
 	private GameWorld gw;
 	private MapView mv;
 	private ScoreView sv;
+	private Container westContainer, eastContainer, southContainer;
+	private Button accelerateButton, turnLeft, turnRight, changeStrats, 
+			decelerate, collideNPR, collideBase, collideES, collideDrone, tick;
 	
 	public Game() {
 		gw = new GameWorld();
 		mv = new MapView(gw);
 		sv = new ScoreView(gw);
 		
+		// create border layout
+		System.out.println("Creating BorderLayout");
+		this.setLayout(new BorderLayout());
+		
+		// create other containers
+		westContainer = new Container();
+		eastContainer = new Container();
+		southContainer = new Container();
+		westContainer.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
+		eastContainer.setLayout(new BoxLayout(BoxLayout.Y_AXIS));
+		southContainer.setLayout(new BoxLayout(BoxLayout.X_AXIS));
+		
+		// set container styles
+		this.getAllStyles().setBorder(Border.createLineBorder(4, ColorUtil.BLUE));
+		westContainer.getAllStyles().setBorder(Border.createLineBorder(4, ColorUtil.BLUE));
+		southContainer.getAllStyles().setBorder(Border.createLineBorder(4, ColorUtil.BLUE));
+		eastContainer.getAllStyles().setBorder(Border.createLineBorder(4, ColorUtil.BLUE));
+		
+		// initialize buttons
+		// left container buttons
+		accelerateButton = new Button("Accelerate");
+		turnLeft = new Button("Left");
+		changeStrats = new Button("Change Strategies");
+		// right container buttons
+		decelerate = new Button("Break");
+		turnRight = new Button("Right");
+		// bottom container buttons
+		collideNPR = new Button("Collide with NPR");
+		collideBase = new Button("Collide with Base");
+		collideES = new Button("Collide with Energy Station");
+		collideDrone = new Button("Collide with Drone");
+		tick = new Button("Tick");
+		
+		setButtonStyles(accelerateButton);
+		setButtonStyles(turnLeft);
+		setButtonStyles(changeStrats);
+		setButtonStyles(decelerate);
+		setButtonStyles(turnRight);
+		setButtonStyles(collideNPR);
+		setButtonStyles(collideBase);
+		setButtonStyles(collideES);
+		setButtonStyles(collideDrone);
+		setButtonStyles(tick);
+				
+		// adding buttons
+		westContainer.add(accelerateButton);
+		westContainer.add(turnLeft);
+		westContainer.add(changeStrats);
+		eastContainer.add(decelerate);
+		eastContainer.add(turnRight);
+		southContainer.add(collideNPR);
+		southContainer.add(collideBase);
+		southContainer.add(collideES);
+		southContainer.add(collideDrone);
+		southContainer.add(tick);
+		
+		// add toolbar
+		Toolbar myToolbar = new Toolbar();
+		myToolbar.setUIID("mainToolbar");
+		myToolbar.getAllStyles().setBorder(Border.createLineBorder(4, ColorUtil.BLUE));
+		this.setToolbar(myToolbar);	
+		myToolbar.setTitle("Robo-Track");
+		
+		// adding containers to regions
+		System.out.println("Adding mapview and scoreview");
+		this.add(BorderLayout.CENTER, mv);
+		this.add(BorderLayout.NORTH, sv);
+		this.add(BorderLayout.WEST, westContainer);
+		this.add(BorderLayout.SOUTH, southContainer);
+		this.add(BorderLayout.EAST, eastContainer);
+		
+		this.show();
+		
+		
 		gw.init();
-		play();
+	}
+	
+	public void setButtonStyles(Button b) {
+		b.getAllStyles().setBgTransparency(255);
+		b.getAllStyles().setBgColor(ColorUtil.BLUE);
+		b.getAllStyles().setFgColor(ColorUtil.LTGRAY);
+		b.getAllStyles().setPadding(TOP, 1);
+  		b.getAllStyles().setPadding(BOTTOM, 1);
 	}
 	
 	@SuppressWarnings("rawtypes")
@@ -31,7 +125,7 @@ public class Game extends Form {
 		// and invokes appropriate methods in GameWorld to manipulate and display
 		// the data and tgame state values in the game model
 		
-		Label myLabel=new Label("Enter a Command:");
+		/*Label myLabel=new Label("Enter a Command:");
 		this.addComponent(myLabel);
 		final TextField myTextField=new TextField();
 		this.addComponent(myTextField);
@@ -126,7 +220,7 @@ public class Game extends Form {
 				} //switch
 			} //actionPerformed
 		} //new ActionListener()
-		); //addActionListener 
+		); //addActionListener */
 				
 	}
 }
