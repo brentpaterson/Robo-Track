@@ -169,6 +169,15 @@ public class Game extends Form {
 	
 	public void initializeCommands() {
 		accelerateCommand = new AccelerateCommand(gw);
+		turnLeftCommand = new TurnLeftCommand(gw);
+		changeStratsCommand = new ChangeStratsCommand(gw);
+		brakeCommand = new BrakeCommand(gw);
+		turnRightCommand = new TurnRightCommand(gw);
+		collideNPRCommand = new CollideNPRCommand(gw);
+		collideBaseCommand = new CollideBaseCommand(gw);
+		collideESCommand = new CollideESCommand(gw);
+		collideDroneCommand = new CollideDroneCommand(gw);
+		tickCommand = new TickCommand(gw);	
 	}
 	
 	@SuppressWarnings("rawtypes")
