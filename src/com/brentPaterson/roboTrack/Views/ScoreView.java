@@ -58,18 +58,23 @@ public class ScoreView extends Container implements Observer {
 	
 	@Override
 	public void update(Observable observable, Object data) {
-		System.out.println("Lives: " + ((GameWorldProxy) observable).getLives());
-		System.out.println("Time: " + ((GameWorldProxy) observable).getTime());
-		System.out.println("Top base: " + ((GameWorldProxy) observable).getTopBase());
-		System.out.println("Current energy level: " + ((GameWorldProxy) observable).getPlayerRobot().getEnergyLevel());
-		System.out.println("Current damage level: " + ((GameWorldProxy) observable).getPlayerRobot().getDamageLevel());
+		// sound status bool -> string
+		String soundStatusString;
+		if (((GameWorldProxy) observable).getSoundStatus())
+			soundStatusString = "ON";
+		else
+			soundStatusString = "OFF";
 		
+		// for console
+		((GameWorldProxy) observable).consoleDisplay();
+		
+		// for actual gui
 		lives.setText("Lives: " + ((GameWorldProxy) observable).getLives());
 		time.setText("Time: " + ((GameWorldProxy) observable).getTime());
 		topBase.setText("Top Base: " + ((GameWorldProxy) observable).getTopBase());
 		energyLevel.setText("Energy Level: " + ((GameWorldProxy) observable).getPlayerRobot().getEnergyLevel());
 		damageLevel.setText("Damage Level: " + ((GameWorldProxy) observable).getPlayerRobot().getDamageLevel());
-		soundStatus.setText("Sound: " + ((GameWorldProxy) observable).getSoundStatus());
+		soundStatus.setText("Sound: " + soundStatusString);
 	}
 
 }

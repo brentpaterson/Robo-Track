@@ -15,6 +15,7 @@ import com.brentPaterson.roboTrack.Views.MapView;
 import com.brentPaterson.roboTrack.Views.ScoreView;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Button;
+import com.codename1.ui.CheckBox;
 import com.codename1.ui.Container;
 import com.codename1.ui.Form;
 import com.codename1.ui.events.ActionListener;
@@ -120,7 +121,16 @@ public class Game extends Form {
 		
 		// side menu commands
 		myToolbar.addCommandToSideMenu(accelerateCommand);
-		myToolbar.addCommandToSideMenu(soundToggleCommand);
+
+		//exit
+		//about
+		
+			// check box for sound, on side menu
+		CheckBox soundCheckBox = new CheckBox("Sound toggle");
+		soundCheckBox.getAllStyles().setBgTransparency(255);
+		soundCheckBox.getAllStyles().setBgColor(ColorUtil.LTGRAY);
+		soundCheckBox.setCommand(soundToggleCommand);
+		myToolbar.addComponentToSideMenu(soundCheckBox);
 		
 		// other commands
 		myToolbar.addCommandToRightBar(helpCommand);

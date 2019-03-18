@@ -22,7 +22,7 @@ public class GameWorld extends Observable implements IGameWorld {
 	private int lives;
 	private int time;
 	private int topBase;
-	private String soundStatus;
+	private boolean soundStatus;
 	
 	// game objects
 	private Robot playerRobot;
@@ -35,7 +35,7 @@ public class GameWorld extends Observable implements IGameWorld {
 		lives = 3;
 		time = 0;
 		topBase = 1;
-		soundStatus = "OFF";
+		soundStatus = false;
 	}
 	
 	public void init() {
@@ -146,12 +146,11 @@ public class GameWorld extends Observable implements IGameWorld {
 	}
 	
 	public void consoleDisplay() {
-		/*System.out.println("Lives: " + lives);
+		System.out.println("Lives: " + lives);
 		System.out.println("Time: " + time);
 		System.out.println("Top base: " + topBase);
 		System.out.println("Current energy level: " + playerRobot.getEnergyLevel());
-		System.out.println("Current damage level: " + playerRobot.getDamageLevel());*/
-		this.notifyObservers();
+		System.out.println("Current damage level: " + playerRobot.getDamageLevel());
 	}
 	
 	public void displayConsoleMap() {
@@ -214,10 +213,10 @@ public class GameWorld extends Observable implements IGameWorld {
 	}
 	
 	public void setSoundToggle() {
-		if (soundStatus.contentEquals("OFF"))
-			soundStatus = "ON";
+		if (soundStatus)
+			soundStatus = false;
 		else
-			soundStatus = "OFF";
+			soundStatus = true;
 		
 		notifyObservers();
 	}
@@ -235,7 +234,7 @@ public class GameWorld extends Observable implements IGameWorld {
 		return topBase;
 	}
 	
-	public String getSoundStatus() {
+	public boolean getSoundStatus() {
 		return soundStatus;
 	}
 	
