@@ -44,7 +44,7 @@ public class ScoreView extends Container implements Observer {
 		time.getAllStyles().setPadding(RIGHT, 5);
 		topBase.getAllStyles().setPadding(RIGHT, 5);
 		energyLevel.getAllStyles().setPadding(RIGHT, 5);
-		damageLevel.getAllStyles().setPadding(RIGHT, 5);		
+		damageLevel.getAllStyles().setPadding(RIGHT, 5);
 		
 		this.add(lives);
 		this.add(time);
