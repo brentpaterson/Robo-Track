@@ -62,7 +62,7 @@ public class GameWorld extends Observable implements IGameWorld {
 		gameObjects.add(new EnergyStation());
 		gameObjects.add(new EnergyStation());
 		
-		
+		notifyObservers();
 	}
 
 	public void accelerate() {
@@ -233,6 +233,10 @@ public class GameWorld extends Observable implements IGameWorld {
 	
 	public int getTopBase() {
 		return topBase;
+	}
+	
+	public String getSoundStatus() {
+		return soundStatus;
 	}
 	
 	public GameObjectCollection getCollection() {

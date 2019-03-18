@@ -16,6 +16,7 @@ public class ScoreView extends Container implements Observer {
 	private Label topBase;
 	private Label energyLevel;
 	private Label damageLevel;
+	private Label soundStatus;
 	
 	public ScoreView(Observable myModel) {
 		myModel.addObserver(this);
@@ -36,6 +37,7 @@ public class ScoreView extends Container implements Observer {
 		topBase = new Label("Top base: 1  ");
 		energyLevel = new Label("Energy Level: 50 ");
 		damageLevel = new Label("Damage Level: 0  ");
+		soundStatus = new Label("Sound: OFF");
 		
 		// set padding
 		lives.getAllStyles().setPadding(RIGHT, 5);
@@ -49,6 +51,7 @@ public class ScoreView extends Container implements Observer {
 		this.add(topBase);
 		this.add(energyLevel);
 		this.add(damageLevel);
+		this.add(soundStatus);
 		
 		
 	}
@@ -66,6 +69,7 @@ public class ScoreView extends Container implements Observer {
 		topBase.setText("Top Base: " + ((GameWorldProxy) observable).getTopBase());
 		energyLevel.setText("Energy Level: " + ((GameWorldProxy) observable).getPlayerRobot().getEnergyLevel());
 		damageLevel.setText("Damage Level: " + ((GameWorldProxy) observable).getPlayerRobot().getDamageLevel());
+		soundStatus.setText("Sound: " + ((GameWorldProxy) observable).getSoundStatus());
 	}
 
 }

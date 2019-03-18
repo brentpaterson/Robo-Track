@@ -15,6 +15,7 @@ public class SoundToggleCommand extends Command {
 	
 	public void actionPerformed(ActionEvent ev) {
 		System.out.println("Sound toggle command invoked (currently not implemented, only changes string to on/off)");
-		// does nothing currently
+		// currently just changes soundStatus string
+		gwc.setSoundToggle();
 	}
 }

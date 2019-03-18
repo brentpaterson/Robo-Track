@@ -7,6 +7,7 @@ import com.brentPaterson.roboTrack.Commands.CollideDroneCommand;
 import com.brentPaterson.roboTrack.Commands.CollideESCommand;
 import com.brentPaterson.roboTrack.Commands.CollideNPRCommand;
 import com.brentPaterson.roboTrack.Commands.HelpCommand;
+import com.brentPaterson.roboTrack.Commands.SoundToggleCommand;
 import com.brentPaterson.roboTrack.Commands.TickCommand;
 import com.brentPaterson.roboTrack.Commands.TurnLeftCommand;
 import com.brentPaterson.roboTrack.Commands.TurnRightCommand;
@@ -52,6 +53,7 @@ public class Game extends Form {
 	private TurnLeftCommand turnLeftCommand;
 	private TurnRightCommand turnRightCommand;
 	private HelpCommand helpCommand;
+	private SoundToggleCommand soundToggleCommand;
 	
 	public Game() {
 		gw = new GameWorld();
@@ -222,6 +224,7 @@ public class Game extends Form {
 		collideDroneCommand = new CollideDroneCommand(gw);
 		tickCommand = new TickCommand(gw);
 		helpCommand = new HelpCommand(gw);
+		soundToggleCommand = new SoundToggleCommand(gw);
 	}
 
 }

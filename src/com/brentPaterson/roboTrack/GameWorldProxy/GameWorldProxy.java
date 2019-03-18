@@ -50,5 +50,9 @@ public class GameWorldProxy extends Observable implements IGameWorld {
 	public Robot getPlayerRobot() {
 		return realGameWorld.getPlayerRobot();
 	}
+	
+	public String getSoundStatus() {
+		return realGameWorld.getSoundStatus();
+	}
 
 }
