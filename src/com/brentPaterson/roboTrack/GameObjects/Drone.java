@@ -7,6 +7,7 @@ import com.codename1.charts.util.ColorUtil;
 
 public class Drone extends Movable {
 
+
 	public Drone() {
 		Random rand = new Random();
 		location = new float[2];

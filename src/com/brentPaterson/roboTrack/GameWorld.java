@@ -7,6 +7,7 @@ import com.brentPaterson.roboTrack.GameObjects.Drone;
 import com.brentPaterson.roboTrack.GameObjects.EnergyStation;
 import com.brentPaterson.roboTrack.GameObjects.GameObject;
 import com.brentPaterson.roboTrack.GameObjects.Movable;
+import com.brentPaterson.roboTrack.GameObjects.NonPlayerRobot;
 import com.brentPaterson.roboTrack.GameObjects.Robot;
 import com.brentPaterson.roboTrack.GameWorldProxy.GameWorldProxy;
 import com.brentPaterson.roboTrack.GameWorldProxy.IGameWorld;
@@ -62,6 +63,12 @@ public class GameWorld extends Observable implements IGameWorld {
 		gameObjects.add(new Drone());
 		gameObjects.add(new EnergyStation());
 		gameObjects.add(new EnergyStation());
+		
+		GameWorldProxy proxy = new GameWorldProxy(this);
+		
+		gameObjects.add(new NonPlayerRobot(proxy));
+		gameObjects.add(new NonPlayerRobot(proxy));
+		
 		
 		notifyObservers();
 	}
@@ -160,6 +167,8 @@ public class GameWorld extends Observable implements IGameWorld {
 			GameObject g = (GameObject) theElements.getNext();
 			if (g instanceof Base) {
 				System.out.print("Base: ");
+			} else if (g instanceof NonPlayerRobot){
+				System.out.print("NonPlayerRobot: ");
 			} else if (g instanceof Robot) {
 				System.out.print("Robot: ");
 			} else if (g instanceof Drone) {

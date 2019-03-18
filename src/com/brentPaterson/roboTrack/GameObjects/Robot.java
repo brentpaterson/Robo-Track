@@ -9,9 +9,12 @@ public class Robot extends Movable implements ISteerable {
 	private int energyConsumptionRate;
 	private int damageLevel;
 	private int lastBaseReached;
+
 	
 	public Robot(float[] initialLocation) {
-		location = initialLocation;
+		location = new float[2];
+		location[0] = initialLocation[0];
+		location[1] = initialLocation[1];
 		
 		size = 40;
 		color = ColorUtil.BLUE;

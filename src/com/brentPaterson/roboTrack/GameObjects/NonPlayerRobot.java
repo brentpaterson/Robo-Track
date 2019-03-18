@@ -2,9 +2,11 @@ package com.brentPaterson.roboTrack.GameObjects;
 
 import java.util.Random;
 
+import com.brentPaterson.roboTrack.Collection.IIterator;
 import com.brentPaterson.roboTrack.GameObjects.Strategies.AdvanceStrategy;
 import com.brentPaterson.roboTrack.GameObjects.Strategies.AttackStrategy;
 import com.brentPaterson.roboTrack.GameObjects.Strategies.IStrategy;
+import com.brentPaterson.roboTrack.GameWorldProxy.GameWorldProxy;
 import com.codename1.charts.util.ColorUtil;
 
 public class NonPlayerRobot extends Robot {
@@ -13,9 +15,12 @@ public class NonPlayerRobot extends Robot {
 	private int energyLevel;
 	private int energyConsumptionRate;
 	private int damageLevel;
+
 	private IStrategy strat;
 	
-	public NonPlayerRobot() {
+	private GameWorldProxy gw;
+	
+	public NonPlayerRobot(GameWorldProxy gw) {
 		size = 40;
 		color = ColorUtil.YELLOW;
 		
@@ -28,35 +33,73 @@ public class NonPlayerRobot extends Robot {
 		heading = 0;
 		speed = 1;
 		
+		this.gw = gw;
+		
+		
 		Random rand = new Random();
-		int angle = rand.nextInt(360);
+		int angle = rand.nextInt(91);
 		int distance = rand.nextInt(size*3) + size*3; // anywhere from 120-240 units away
+		location = new float[2];
 		location[0] = (float) Math.cos(Math.toRadians(angle)) * distance;
 		location[1] = (float) Math.sin(Math.toRadians(angle)) * distance;
 		
-		// set initial random strategy
-		IStrategy randStrat = null;
-		
-		int tempRand = rand.nextInt(1);
-		if (tempRand == 0)
-			randStrat = new AttackStrategy(this);
-		else if (tempRand == 1) 
-			randStrat = new AdvanceStrategy(this);
-		
-		this.setStrategy(randStrat);
+		this.setStrategy();
 		this.invokeStrategy();
+		
+		
 	}
 	
 	public void changeDirection(int angle) {
 		steeringDirection = angle;
+		System.out.println("new direction: " + steeringDirection);
 		this.updateHeading();
 	}
 	
-	public void setStrategy(IStrategy strat) {
-		this.strat = strat;
+	public void setStrategy() {
+		float[] locations = getBaseLocation();
+		float[] attackLocation = new float[] {locations[0], locations[1]};
+		float[] advanceLocation = new float[] {locations[2], locations[3]};
+		
+		Random rand = new Random();
+		
+		int tempRand = rand.nextInt(2);
+		if (tempRand == 0)
+			strat = new AttackStrategy(this, attackLocation);
+		else if (tempRand == 1) 
+			strat = new AdvanceStrategy(this, advanceLocation);
+		
 	}
 	
 	public void invokeStrategy() {
 		this.strat.apply();
 	}
+	
+	public void decEnergyLevel() {
+		// do nothing
+	}
+	
+	public void takeDamage(int amount) {
+		// do nothing
+	}
+	
+	// helper method
+	private float[] getBaseLocation() {
+		IIterator gwIterator = gw.getIterator();
+		float[] locations = new float[4];
+		while (gwIterator.hasNext()) {
+			GameObject curObj = (GameObject) gwIterator.getNext();
+			if (curObj instanceof Base) {
+				if (((Base) curObj).getSeqNum() == gw.getTopBase()) {
+					locations[0] = curObj.getLocation()[0];
+					locations[1] = curObj.getLocation()[1];
+				} else if (((Base) curObj).getSeqNum() == gw.getTopBase() + 1) {
+					locations[2] = curObj.getLocation()[0];
+					locations[3] = curObj.getLocation()[1];
+				}
+			}
+		}
+		
+		return locations;
+	}
 }
+
