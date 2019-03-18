@@ -1,4 +1,5 @@
 package com.brentPaterson.roboTrack;
+import com.brentPaterson.roboTrack.Commands.AboutCommand;
 import com.brentPaterson.roboTrack.Commands.AccelerateCommand;
 import com.brentPaterson.roboTrack.Commands.BrakeCommand;
 import com.brentPaterson.roboTrack.Commands.ChangeStratsCommand;
@@ -6,6 +7,7 @@ import com.brentPaterson.roboTrack.Commands.CollideBaseCommand;
 import com.brentPaterson.roboTrack.Commands.CollideDroneCommand;
 import com.brentPaterson.roboTrack.Commands.CollideESCommand;
 import com.brentPaterson.roboTrack.Commands.CollideNPRCommand;
+import com.brentPaterson.roboTrack.Commands.ExitCommand;
 import com.brentPaterson.roboTrack.Commands.HelpCommand;
 import com.brentPaterson.roboTrack.Commands.SoundToggleCommand;
 import com.brentPaterson.roboTrack.Commands.TickCommand;
@@ -18,15 +20,10 @@ import com.codename1.ui.Button;
 import com.codename1.ui.CheckBox;
 import com.codename1.ui.Container;
 import com.codename1.ui.Form;
-import com.codename1.ui.events.ActionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.ui.layouts.FlowLayout;
 import com.codename1.ui.plaf.Border;
-import com.codename1.ui.Label;
-import com.codename1.ui.TextField;
-import com.codename1.ui.Toolbar;
-import com.codename1.ui.events.ActionEvent; 
+import com.codename1.ui.Toolbar; 
 
 
 public class Game extends Form {
@@ -55,6 +52,8 @@ public class Game extends Form {
 	private TurnRightCommand turnRightCommand;
 	private HelpCommand helpCommand;
 	private SoundToggleCommand soundToggleCommand;
+	private AboutCommand aboutCommand;
+	private ExitCommand exitCommand;
 	
 	public Game() {
 		gw = new GameWorld();
@@ -121,9 +120,8 @@ public class Game extends Form {
 		
 		// side menu commands
 		myToolbar.addCommandToSideMenu(accelerateCommand);
-
-		//exit
-		//about
+		myToolbar.addCommandToSideMenu(aboutCommand);
+		myToolbar.addCommandToSideMenu(exitCommand);
 		
 			// check box for sound, on side menu
 		CheckBox soundCheckBox = new CheckBox("Sound toggle");
@@ -235,6 +233,8 @@ public class Game extends Form {
 		tickCommand = new TickCommand(gw);
 		helpCommand = new HelpCommand(gw);
 		soundToggleCommand = new SoundToggleCommand(gw);
+		aboutCommand = new AboutCommand(gw);
+		exitCommand = new ExitCommand(gw);
 	}
 
 }
