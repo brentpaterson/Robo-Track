@@ -44,18 +44,19 @@ public class GameWorld extends Observable implements IGameWorld {
 			exit();
 		}
 		
-		float[] location = {(float) (0.25 * Game.rangeX), (float) (0.25 * Game.rangeY)};
+		float[] mapResolution = Game.getMapResolution();
+		float[] location = {(float) (0.25 * mapResolution[0]), (float) (0.25 * mapResolution[1])};
 		playerRobot = new Robot(location);
 		gameObjects.add(playerRobot);
 		gameObjects.add(new Base(1, location));
-		location[0] = (float) (0.15 * Game.rangeX);
-		location[1] = (float) (0.80 * Game.rangeY);
+		location[0] = (float) (0.15 * mapResolution[0]);
+		location[1] = (float) (0.80 * mapResolution[1]);
 		gameObjects.add(new Base(2, location));
-		location[0] = (float) (0.75 * Game.rangeX);
-		location[1] = (float) (0.75 * Game.rangeY);
+		location[0] = (float) (0.75 * mapResolution[0]);
+		location[1] = (float) (0.75 * mapResolution[1]);
 		gameObjects.add(new Base(3, location));
-		location[0] = (float) (0.85 * Game.rangeX);
-		location[1] = (float) (0.30 * Game.rangeY);
+		location[0] = (float) (0.85 * mapResolution[0]);
+		location[1] = (float) (0.30 * mapResolution[1]);
 		gameObjects.add(new Base(4, location));
 		gameObjects.add(new Drone());
 		gameObjects.add(new Drone());

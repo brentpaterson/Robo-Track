@@ -3,6 +3,7 @@ package com.brentPaterson.roboTrack.Views;
 import java.util.Observable;
 import java.util.Observer;
 
+import com.brentPaterson.roboTrack.GameWorldProxy.GameWorldProxy;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Container;
 import com.codename1.ui.layouts.FlowLayout;
@@ -29,7 +30,7 @@ public class MapView extends Container implements Observer {
 	
 	@Override
 	public void update(Observable observable, Object data) {
-		// TODO Auto-generated method stub
+		((GameWorldProxy) observable).displayConsoleMap();
 		
 	}
 

@@ -60,4 +60,9 @@ public class GameWorldProxy extends Observable implements IGameWorld {
 		
 	}
 
+	public void displayConsoleMap() {
+		realGameWorld.displayConsoleMap();
+		
+	}
+
 }

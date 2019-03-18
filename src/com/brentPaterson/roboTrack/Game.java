@@ -29,8 +29,8 @@ import com.codename1.ui.Toolbar;
 public class Game extends Form {
 	
 	// static game values
-	public final static float rangeX = 1024;
-	public final static float rangeY = 768;
+	private static float rangeX;
+	private static float rangeY;
 	
 	private GameWorld gw;
 	private MapView mv;
@@ -145,8 +145,12 @@ public class Game extends Form {
 		this.add(BorderLayout.SOUTH, southContainer);
 		this.add(BorderLayout.EAST, eastContainer);
 		
-		this.show();
 		
+		
+		this.show();
+		rangeX = mv.getWidth();
+		rangeY = mv.getHeight();
+		System.out.println("Map View Resolution: " + rangeX + "x" + rangeY);
 		
 		gw.init();
 	}
@@ -237,4 +241,7 @@ public class Game extends Form {
 		exitCommand = new ExitCommand(gw);
 	}
 
+	public static float[] getMapResolution() {
+		return new float[] {rangeX, rangeY};
+	}
 }
