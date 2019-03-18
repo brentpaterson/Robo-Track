@@ -43,7 +43,15 @@ public class NonPlayerRobot extends Robot {
 		location[0] = (float) Math.cos(Math.toRadians(angle)) * distance;
 		location[1] = (float) Math.sin(Math.toRadians(angle)) * distance;
 		
-		this.setStrategy();
+		float[] locations = getBaseLocation();
+		float[] attackLocation = new float[] {locations[0], locations[1]};
+		float[] advanceLocation = new float[] {locations[2], locations[3]};
+		
+		int tempRand = rand.nextInt(2);
+		if (tempRand == 0)
+			strat = new AttackStrategy(this, attackLocation);
+		else if (tempRand == 1) 
+			strat = new AdvanceStrategy(this, advanceLocation);
 		this.invokeStrategy();
 		
 		
@@ -60,14 +68,11 @@ public class NonPlayerRobot extends Robot {
 		float[] attackLocation = new float[] {locations[0], locations[1]};
 		float[] advanceLocation = new float[] {locations[2], locations[3]};
 		
-		Random rand = new Random();
 		
-		int tempRand = rand.nextInt(2);
-		if (tempRand == 0)
-			strat = new AttackStrategy(this, attackLocation);
-		else if (tempRand == 1) 
+		if (strat instanceof AttackStrategy)
 			strat = new AdvanceStrategy(this, advanceLocation);
-		
+		else
+			strat = new AttackStrategy(this, attackLocation);
 	}
 	
 	public void invokeStrategy() {
