@@ -223,10 +223,7 @@ public class GameWorld extends Observable implements IGameWorld {
 	}
 	
 	public void setSoundToggle() {
-		if (soundStatus)
-			soundStatus = false;
-		else
-			soundStatus = true;
+		soundStatus = !soundStatus;
 		
 		notifyObservers();
 	}
