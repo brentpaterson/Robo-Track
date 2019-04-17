@@ -218,10 +218,6 @@ public class GameWorld extends Observable implements IGameWorld {
 		System.exit(0);
 	}
 	
-	public void invalidCommand() {
-		System.out.println("INVALID ENTRY");
-	}
-	
 	public void setSoundToggle() {
 		soundStatus = !soundStatus;
 		
