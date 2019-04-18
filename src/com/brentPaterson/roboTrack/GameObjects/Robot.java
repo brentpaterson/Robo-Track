@@ -91,7 +91,9 @@ public class Robot extends Movable implements ISteerable {
 
 	@Override
 	public void draw(Graphics g, Point pCmpRelPrnt) {
-		// TODO Auto-generated method stub
+		g.setColor(this.getColor());
+		g.fillRect((int)(pCmpRelPrnt.getX() + this.getLocation()[0]), (int)(pCmpRelPrnt.getY() + this.getLocation()[1]),
+				this.getSize(), this.getSize());
 		
 	}
 }

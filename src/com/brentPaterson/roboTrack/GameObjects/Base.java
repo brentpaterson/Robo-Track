@@ -22,8 +22,6 @@ public class Base extends Fixed {
 
 	@Override
 	public void draw(Graphics g, Point pCmpRelPrnt) {
-		
-		
 		int[] x = new int[3];
 		int[] y = new int[3];
 		x[0] = (int)(pCmpRelPrnt.getX() + this.getLocation()[0]);
@@ -36,7 +34,6 @@ public class Base extends Fixed {
 		
 		g.setColor(this.getColor());
 		g.fillPolygon(x, y, 3);
-		g.drawPolygon(x, y, 3); // draw triangle	
 		
 		int stringWidth = g.getFont().stringWidth(Integer.toString(sequenceNumber));
 		 

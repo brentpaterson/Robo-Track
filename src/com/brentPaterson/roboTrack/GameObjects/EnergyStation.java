@@ -14,7 +14,7 @@ public class EnergyStation extends Fixed {
 		Random rand = new Random();
 		location = new float[2];
 		
-		size = rand.nextInt(41) + 10; // range between 10 and 50
+		size = rand.nextInt(101) + 50; // range between 50 and 100
 		location[0] = (float) rand.nextInt((int) Game.getMapResolution()[0] - size) +  (float) size / 2;
 		location[1] = (float) rand.nextInt((int) Game.getMapResolution()[1] - size) +  (float) size / 2;
 		
@@ -42,7 +42,9 @@ public class EnergyStation extends Fixed {
 
 	@Override
 	public void draw(Graphics g, Point pCmpRelPrnt) {
-		// TODO Auto-generated method stub
+		g.setColor(this.getColor());
+		g.fillArc((int)(pCmpRelPrnt.getX() + this.getLocation()[0]), (int)(pCmpRelPrnt.getY() + this.getLocation()[1]),
+				this.getSize(), this.getSize(), 0, 360);
 		
 	}
 

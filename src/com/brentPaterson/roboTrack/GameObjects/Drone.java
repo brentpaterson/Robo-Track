@@ -14,7 +14,7 @@ public class Drone extends Movable {
 		Random rand = new Random();
 		location = new float[2];
 		
-		size = rand.nextInt(41) + 10; // range between 10 and 50
+		size = rand.nextInt(26) + 50; // range between 50 and 75
 		location[0] = (float) rand.nextInt((int) Game.getMapResolution()[0] - size) +  (float) size / 2;
 		location[1] = (float) rand.nextInt((int) Game.getMapResolution()[1] - size) +  (float) size / 2;
 		
@@ -31,7 +31,18 @@ public class Drone extends Movable {
 
 	@Override
 	public void draw(Graphics g, Point pCmpRelPrnt) {
-		// TODO Auto-generated method stub
+		int[] x = new int[3];
+		int[] y = new int[3];
+		x[0] = (int)(pCmpRelPrnt.getX() + this.getLocation()[0]);
+		x[1] = (int)(pCmpRelPrnt.getX() + this.getLocation()[0] + this.getSize());
+		x[2] = (int)(pCmpRelPrnt.getX() + this.getLocation()[0] + 0.5 * this.getSize());
+		
+		y[0] = (int)(pCmpRelPrnt.getY() + this.getLocation()[1] + this.getSize());
+		y[1] = (int)(pCmpRelPrnt.getY() + this.getLocation()[1] + this.getSize());
+		y[2] = (int)(pCmpRelPrnt.getY() + this.getLocation()[1]);
+		
+		g.setColor(this.getColor());
+		g.drawPolygon(x, y, 3);
 		
 	}
 

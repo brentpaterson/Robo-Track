@@ -7,7 +7,9 @@ import com.brentPaterson.roboTrack.GameObjects.Strategies.AdvanceStrategy;
 import com.brentPaterson.roboTrack.GameObjects.Strategies.AttackStrategy;
 import com.brentPaterson.roboTrack.GameObjects.Strategies.IStrategy;
 import com.brentPaterson.roboTrack.GameWorldProxy.GameWorldProxy;
+import com.codename1.charts.models.Point;
 import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Graphics;
 
 public class NonPlayerRobot extends Robot {
 	private int steeringDirection;
@@ -22,7 +24,7 @@ public class NonPlayerRobot extends Robot {
 	
 	public NonPlayerRobot(GameWorldProxy gw) {
 		size = 40;
-		color = ColorUtil.YELLOW;
+		color = ColorUtil.BLACK;
 		
 		steeringDirection = 0;
 		maximumSpeed = 50;
@@ -85,6 +87,14 @@ public class NonPlayerRobot extends Robot {
 	
 	public void takeDamage(int amount) {
 		// do nothing
+	}
+	
+	@Override
+	public void draw(Graphics g, Point pCmpRelPrnt) {
+		g.setColor(this.getColor());
+		g.drawRect((int)(pCmpRelPrnt.getX() + this.getLocation()[0]), (int)(pCmpRelPrnt.getY() + this.getLocation()[1]),
+				this.getSize(), this.getSize());
+		
 	}
 	
 	// helper method
