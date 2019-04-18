@@ -3,16 +3,14 @@ import com.brentPaterson.roboTrack.Commands.AboutCommand;
 import com.brentPaterson.roboTrack.Commands.AccelerateCommand;
 import com.brentPaterson.roboTrack.Commands.BrakeCommand;
 import com.brentPaterson.roboTrack.Commands.ChangeStratsCommand;
-import com.brentPaterson.roboTrack.Commands.CollideBaseCommand;
-import com.brentPaterson.roboTrack.Commands.CollideDroneCommand;
-import com.brentPaterson.roboTrack.Commands.CollideESCommand;
-import com.brentPaterson.roboTrack.Commands.CollideNPRCommand;
 import com.brentPaterson.roboTrack.Commands.ExitCommand;
 import com.brentPaterson.roboTrack.Commands.HelpCommand;
+import com.brentPaterson.roboTrack.Commands.PauseCommand;
 import com.brentPaterson.roboTrack.Commands.SoundToggleCommand;
-import com.brentPaterson.roboTrack.Commands.TickCommand;
 import com.brentPaterson.roboTrack.Commands.TurnLeftCommand;
 import com.brentPaterson.roboTrack.Commands.TurnRightCommand;
+import com.brentPaterson.roboTrack.Sounds.BGSound;
+import com.brentPaterson.roboTrack.Sounds.Sound;
 import com.brentPaterson.roboTrack.Views.MapView;
 import com.brentPaterson.roboTrack.Views.ScoreView;
 import com.codename1.charts.util.ColorUtil;
@@ -38,7 +36,7 @@ public class Game extends Form implements Runnable {
 	private ScoreView sv;
 	private Container westContainer, eastContainer, southContainer;
 	private Button accelerateButton, turnLeft, turnRight, changeStrats, 
-			brake;
+			brake, pause;
 	
 	// commands
 	private AccelerateCommand accelerateCommand;
@@ -50,6 +48,12 @@ public class Game extends Form implements Runnable {
 	private SoundToggleCommand soundToggleCommand;
 	private AboutCommand aboutCommand;
 	private ExitCommand exitCommand;
+	private PauseCommand pauseCommand;
+	
+	// tick stuff
+	private UITimer timer;
+	private boolean paused;
+	private BGSound bgsound;
 	
 	public Game() {
 		gw = new GameWorld();
@@ -94,7 +98,7 @@ public class Game extends Form implements Runnable {
 		westContainer.add(changeStrats);
 		eastContainer.add(brake);
 		eastContainer.add(turnRight);
-		//southContainer.add(collideNPR);
+		southContainer.add(pause);
 
 		
 		createKeyListeners();
@@ -144,8 +148,11 @@ public class Game extends Form implements Runnable {
 		 * 
 		 *********************************************************/
 		
-		UITimer timer = new UITimer(this);
+		timer = new UITimer(this);
 		timer.schedule(gw.getTickRate(), true, this); 
+		paused = false;
+		bgsound = new BGSound("Milkomeda.wav");
+		//bgsound.play();
 		
 		this.show();
 		rangeX = mv.getWidth();
@@ -177,6 +184,7 @@ public class Game extends Form implements Runnable {
 		brake = new Button("Brake");
 		turnRight = new Button("Right");
 		// bottom container buttons
+		pause = new Button("Pause");
 
 		
 		setButtonCommands();
@@ -186,6 +194,7 @@ public class Game extends Form implements Runnable {
 		setButtonStyles(changeStrats);
 		setButtonStyles(brake);
 		setButtonStyles(turnRight);
+		setButtonStyles(pause);
 
 	}
 	
@@ -195,6 +204,7 @@ public class Game extends Form implements Runnable {
 		changeStrats.setCommand(changeStratsCommand);
 		brake.setCommand(brakeCommand);
 		turnRight.setCommand(turnRightCommand);
+		pause.setCommand(pauseCommand);
 	}
 	
 	public void setButtonStyles(Button b) {
@@ -223,10 +233,19 @@ public class Game extends Form implements Runnable {
 		soundToggleCommand = new SoundToggleCommand(gw);
 		aboutCommand = new AboutCommand(gw);
 		exitCommand = new ExitCommand(gw);
+		pauseCommand = new PauseCommand(gw);
 	}
 
 	public static float[] getMapResolution() {
 		return new float[] {rangeX, rangeY};
+	}
+	
+	public void timerToggle() {
+		if (!paused) {
+			//pause game
+			paused = !paused;
+			
+		}
 	}
 
 

@@ -9,8 +9,10 @@ import com.brentPaterson.roboTrack.GameObjects.GameObject;
 import com.brentPaterson.roboTrack.GameObjects.Movable;
 import com.brentPaterson.roboTrack.GameObjects.NonPlayerRobot;
 import com.brentPaterson.roboTrack.GameObjects.Robot;
+import com.brentPaterson.roboTrack.GameObjects.Interfaces.ICollider;
 import com.brentPaterson.roboTrack.GameWorldProxy.GameWorldProxy;
 import com.brentPaterson.roboTrack.GameWorldProxy.IGameWorld;
+import com.brentPaterson.roboTrack.Sounds.Sound;
 import com.codename1.charts.util.ColorUtil;
 import java.util.Arrays;
 import java.util.Observable;
@@ -36,7 +38,7 @@ public class GameWorld extends Observable implements IGameWorld {
 		lives = 3;
 		time = 0;
 		topBase = 1;
-		soundStatus = false;
+		soundStatus = true;
 		tickRate = 20;
 	}
 	
@@ -69,7 +71,6 @@ public class GameWorld extends Observable implements IGameWorld {
 		
 		gameObjects.add(new NonPlayerRobot(proxy));
 		gameObjects.add(new NonPlayerRobot(proxy));
-		
 		
 		notifyObservers();
 	}
@@ -121,6 +122,19 @@ public class GameWorld extends Observable implements IGameWorld {
 		playerRobot.decEnergyLevel();
 		
 		// check for collisions
+		theElements = gameObjects.getIterator();
+		
+		while (theElements.hasNext()) {
+			IIterator theElements2 = gameObjects.getIterator();
+			GameObject otherObj = (GameObject) theElements.getNext();
+			while (theElements2.hasNext()) {
+				ICollider curObj = (ICollider) theElements2.getNext();
+				if (curObj != (ICollider) otherObj && curObj.collidesWith(otherObj)) {
+					curObj.handleCollision(otherObj);
+				}
+			}
+			
+		}
 			
 		time++;
 		notifyObservers();
@@ -250,6 +264,15 @@ public class GameWorld extends Observable implements IGameWorld {
 		GameWorldProxy proxy = new GameWorldProxy(this);
 		for (Observer o : myObserverList) {
 			o.update(proxy, null);
+		}
+	}
+	
+	// sound methods
+	
+	public void chargeUpSound() {
+		if (soundStatus) {
+			Sound chargeUp = new Sound("Charge Up Noise.wav");
+			chargeUp.play();
 		}
 	}
 }

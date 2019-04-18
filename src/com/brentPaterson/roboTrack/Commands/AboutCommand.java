@@ -25,7 +25,8 @@ public class AboutCommand extends Command {
 		Command[] cmds = new Command[] {cOk};
 		String body = "Author: Brent Paterson\n"
 				+ "Course: CSC133-03\n"
-				+ "Version: 0.20";
+				+ "Version: 0.30\n"
+				+ "Music and sounds by Christo Savaides";
 		
 		Dialog.show("About", body, cmds);
 		

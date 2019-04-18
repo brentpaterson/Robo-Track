@@ -116,12 +116,5 @@ public class NonPlayerRobot extends Robot {
 		
 		return locations;
 	}
-	
-	@Override
-	public void handleCollision(GameObject otherObject) {
-		if (otherObject instanceof Robot || otherObject instanceof Drone) {
-			this.takeDamage(10);
-		}
-	}
 }
 
