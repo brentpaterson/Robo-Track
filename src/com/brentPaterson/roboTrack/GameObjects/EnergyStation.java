@@ -54,4 +54,22 @@ public class EnergyStation extends Fixed {
 		
 	}
 
+	@Override
+	public void setSelected(boolean yesNo) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public boolean isSelected() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean contains(Point pPtrRelPrnt, Point pCmpRelPrnt) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

@@ -233,7 +233,7 @@ public class Game extends Form implements Runnable {
 		soundToggleCommand = new SoundToggleCommand(gw);
 		aboutCommand = new AboutCommand(gw);
 		exitCommand = new ExitCommand(gw);
-		pauseCommand = new PauseCommand(gw);
+		pauseCommand = new PauseCommand(gw, this);
 	}
 
 	public static float[] getMapResolution() {
@@ -244,9 +244,17 @@ public class Game extends Form implements Runnable {
 		if (!paused) {
 			//pause game
 			paused = !paused;
-			
+			bgsound.pause();
+			timer.cancel();
+		} else {
+			if (gw.getSoundStatus())
+				//bgsound.play();
+	
+			paused = !paused;
+			timer.schedule(gw.getTickRate(), true, this); 
 		}
 	}
+
 
 
 }

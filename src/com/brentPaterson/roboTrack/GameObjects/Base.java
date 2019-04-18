@@ -1,5 +1,8 @@
 package com.brentPaterson.roboTrack.GameObjects;
 
+import java.util.Vector;
+
+import com.brentPaterson.roboTrack.GameObjects.Interfaces.ICollider;
 import com.codename1.charts.models.Point;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
@@ -14,6 +17,7 @@ public class Base extends Fixed {
 		location = new float[2];
 		location[0] = locationInput[0];
 		location[1] = locationInput[1];
+		collidingObjects = new Vector<>();
 	}
 	
 	public int getSeqNum() {
@@ -46,7 +50,24 @@ public class Base extends Fixed {
 	@Override
 	public void handleCollision(GameObject otherObject) {
 		// nothing happens to base
+	}
+
+	@Override
+	public void setSelected(boolean yesNo) {
+		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	public boolean isSelected() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean contains(Point pPtrRelPrnt, Point pCmpRelPrnt) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
