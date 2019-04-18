@@ -46,4 +46,12 @@ public class Drone extends Movable {
 		
 	}
 
+	@Override
+	public void handleCollision(GameObject otherObject) {
+		// turn drone around
+		heading += 180;
+		if (heading > 360)
+			heading -= 360;
+	}
+
 }

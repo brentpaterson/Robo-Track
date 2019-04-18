@@ -12,8 +12,6 @@ import com.brentPaterson.roboTrack.GameObjects.Robot;
 import com.brentPaterson.roboTrack.GameWorldProxy.GameWorldProxy;
 import com.brentPaterson.roboTrack.GameWorldProxy.IGameWorld;
 import com.codename1.charts.util.ColorUtil;
-import com.codename1.ui.Graphics;
-
 import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
@@ -151,6 +149,8 @@ public class GameWorld extends Observable implements IGameWorld {
 		}
 		
 		playerRobot.decEnergyLevel();
+		
+		// check for collisions
 			
 		time++;
 		notifyObservers();

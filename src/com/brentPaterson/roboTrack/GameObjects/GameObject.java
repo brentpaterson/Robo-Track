@@ -20,4 +20,18 @@ public abstract class GameObject implements IDrawable, ICollider {
 	public int getColor() {
 		return color;
 	}
+	
+	@Override
+	public boolean collidesWith(GameObject otherObject) {
+		int otherX = (int) otherObject.getLocation()[0];
+		int otherY = (int) otherObject.getLocation()[1];
+		
+		if (this.getLocation()[0] > otherX && this.getLocation()[0] < otherX + otherObject.getSize()) {
+			if (this.getLocation()[1] > otherY && this.getLocation()[1] < otherY + otherObject.getSize())
+				return true;
+		}
+		
+		
+		return false;
+	}
 }

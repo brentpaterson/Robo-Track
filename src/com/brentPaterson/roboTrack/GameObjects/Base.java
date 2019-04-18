@@ -43,4 +43,14 @@ public class Base extends Fixed {
 				(int)(pCmpRelPrnt.getY() + this.getLocation()[1] + 0.5 * this.getSize())); 
 	}
 
+	@Override
+	public void handleCollision(GameObject otherObject) {
+		if (otherObject instanceof Robot && !(otherObject instanceof NonPlayerRobot)) {
+			if (((Robot) otherObject).getLastBaseReached() == this.getSeqNum() - 1) {
+				((Robot) otherObject).incLastBaseReached();
+			}
+		}
+		
+	}
+
 }
