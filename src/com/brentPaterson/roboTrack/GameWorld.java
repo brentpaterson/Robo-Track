@@ -90,36 +90,6 @@ public class GameWorld extends Observable implements IGameWorld {
 		playerRobot.changeDirection(5);
 	}
 	
-	public void collisionNPR() {
-		playerRobot.takeDamage(10);
-		// damage NPR
-	}
-	
-	public void collisionDrone() {
-		playerRobot.takeDamage(10);
-	}
-	
-	public void baseCollision(int baseNum) {
-		if (baseNum == playerRobot.getLastBaseReached() + 1) {
-			playerRobot.incLastBaseReached();
-			if (baseNum > topBase) {
-				topBase = baseNum;
-			}
-		}
-	}
-	
-	public void energyCollision() {
-		IIterator theElements = gameObjects.getIterator();
-		while(theElements.hasNext()) {
-			GameObject g = (GameObject) theElements.getNext();
-			if (g instanceof EnergyStation && !((EnergyStation) g).isUsed()) {
-				playerRobot.incEnergyLevel(((EnergyStation) g).useStation());
-				gameObjects.add(new EnergyStation());
-				break;
-			}
-		}
-	}
-	
 	public void tick() {
 		// game over??
 		if (playerRobot.getDamageLevel() >= 100 || playerRobot.getEnergyLevel() <= 0 || playerRobot.getMaxSpeed() <= 0) {
