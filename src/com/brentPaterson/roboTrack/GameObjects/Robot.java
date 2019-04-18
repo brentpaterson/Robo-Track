@@ -102,5 +102,16 @@ public class Robot extends Movable implements ISteerable {
 		if (otherObject instanceof Robot || otherObject instanceof Drone) {
 			this.takeDamage(10);
 		}
+		
+		if (otherObject instanceof EnergyStation) {
+			if (!((EnergyStation) otherObject).isUsed())
+				((EnergyStation) otherObject).useStation();
+		}
+		
+		if (otherObject instanceof Base) {
+			if (this.getLastBaseReached() == ((Base) otherObject).getSeqNum() + 1) {
+				this.incLastBaseReached();
+			}
+		}
 	}
 }

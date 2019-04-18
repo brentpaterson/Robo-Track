@@ -50,12 +50,7 @@ public class EnergyStation extends Fixed {
 
 	@Override
 	public void handleCollision(GameObject otherObject) {
-		if (otherObject instanceof Robot && !(otherObject instanceof NonPlayerRobot)) {
-			if (!this.isUsed()) {
-				((Robot) otherObject).incEnergyLevel(this.useStation());
-			}
-			
-		}
+		// handles in robot
 		
 	}
 

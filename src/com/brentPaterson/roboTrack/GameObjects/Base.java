@@ -45,11 +45,7 @@ public class Base extends Fixed {
 
 	@Override
 	public void handleCollision(GameObject otherObject) {
-		if (otherObject instanceof Robot && !(otherObject instanceof NonPlayerRobot)) {
-			if (((Robot) otherObject).getLastBaseReached() == this.getSeqNum() - 1) {
-				((Robot) otherObject).incLastBaseReached();
-			}
-		}
+		// nothing happens to base
 		
 	}
 
