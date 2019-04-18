@@ -12,6 +12,8 @@ import com.brentPaterson.roboTrack.GameObjects.Robot;
 import com.brentPaterson.roboTrack.GameWorldProxy.GameWorldProxy;
 import com.brentPaterson.roboTrack.GameWorldProxy.IGameWorld;
 import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Graphics;
+
 import java.util.Arrays;
 import java.util.Observable;
 import java.util.Observer;
@@ -23,6 +25,7 @@ public class GameWorld extends Observable implements IGameWorld {
 	private int time;
 	private int topBase;
 	private boolean soundStatus;
+	private int tickRate;
 	
 	// game objects
 	private Robot playerRobot;
@@ -36,6 +39,7 @@ public class GameWorld extends Observable implements IGameWorld {
 		time = 0;
 		topBase = 1;
 		soundStatus = false;
+		tickRate = 20;
 	}
 	
 	public void init() {
@@ -43,6 +47,8 @@ public class GameWorld extends Observable implements IGameWorld {
 			System.out.println("completely out of lives. Exiting program");
 			exit();
 		}
+		
+		Graphics g = getGraphics();
 		
 		float[] mapResolution = Game.getMapResolution();
 		float[] location = {(float) (0.25 * mapResolution[0]), (float) (0.25 * mapResolution[1])};
@@ -136,13 +142,13 @@ public class GameWorld extends Observable implements IGameWorld {
 			}
 		}
 		
-		playerRobot.move();
+		playerRobot.move(tickRate);
 		
 		theElements = gameObjects.getIterator();
 		while(theElements.hasNext()) {
 			GameObject g = (GameObject) theElements.getNext();
 			if (g instanceof Drone) {
-				((Drone) g).move();
+				((Drone) g).move(tickRate);
 			}
 		}
 		
@@ -150,6 +156,10 @@ public class GameWorld extends Observable implements IGameWorld {
 			
 		time++;
 		notifyObservers();
+	}
+	
+	public int getTickRate() {
+		return tickRate;
 	}
 	
 	public void consoleDisplay() {

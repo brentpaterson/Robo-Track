@@ -20,7 +20,7 @@ public class Drone extends Movable {
 		
 		color = ColorUtil.MAGENTA;
 		
-		speed = rand.nextInt(6) + 5;
+		speed = rand.nextInt(5) + 1;
 		heading = rand.nextInt(360);
 	}
 	 

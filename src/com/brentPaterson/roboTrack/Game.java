@@ -23,10 +23,11 @@ import com.codename1.ui.Form;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.plaf.Border;
+import com.codename1.ui.util.UITimer;
 import com.codename1.ui.Toolbar; 
 
 
-public class Game extends Form {
+public class Game extends Form implements Runnable {
 	
 	// static game values
 	private static float rangeX;
@@ -145,7 +146,14 @@ public class Game extends Form {
 		this.add(BorderLayout.SOUTH, southContainer);
 		this.add(BorderLayout.EAST, eastContainer);
 		
+		/*********************************************************
+		 * 
+		 * Tick timer in place here, 20ms ticks
+		 * 
+		 *********************************************************/
 		
+		UITimer timer = new UITimer(this);
+		timer.schedule(gw.getTickRate(), true, this); 
 		
 		this.show();
 		rangeX = mv.getWidth();
@@ -153,6 +161,12 @@ public class Game extends Form {
 		System.out.println("Map View Resolution: " + rangeX + "x" + rangeY);
 		
 		gw.init();
+	}
+	
+	@Override
+	public void run() {
+		gw.tick();
+		
 	}
 	
 	/*********************************************************
@@ -244,4 +258,6 @@ public class Game extends Form {
 	public static float[] getMapResolution() {
 		return new float[] {rangeX, rangeY};
 	}
+
+
 }

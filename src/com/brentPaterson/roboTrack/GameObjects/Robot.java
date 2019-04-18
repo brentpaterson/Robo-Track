@@ -25,7 +25,7 @@ public class Robot extends Movable implements ISteerable {
 		steeringDirection = 0;
 		maximumSpeed = 50;
 		energyLevel = 50;
-		energyConsumptionRate = 5;
+		energyConsumptionRate = 1;
 		damageLevel = 0;
 		lastBaseReached = 1;
 		
