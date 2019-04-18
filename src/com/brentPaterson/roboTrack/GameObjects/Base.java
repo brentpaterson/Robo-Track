@@ -8,7 +8,7 @@ public class Base extends Fixed {
 	private int sequenceNumber;
 	
 	public Base(int sequenceNumber, float[] locationInput) {
-		size = 10;
+		size = 100;
 		color = ColorUtil.LTGRAY;
 		this.sequenceNumber = sequenceNumber;
 		location = new float[2];
@@ -22,22 +22,28 @@ public class Base extends Fixed {
 
 	@Override
 	public void draw(Graphics g, Point pCmpRelPrnt) {
+		
+		
 		int[] x = new int[3];
 		int[] y = new int[3];
 		x[0] = (int)(pCmpRelPrnt.getX() + this.getLocation()[0]);
-		x[1] = (int)(pCmpRelPrnt.getX() + this.getLocation()[0] + size);
-		x[2] = (int)(pCmpRelPrnt.getX() + this.getLocation()[0] + 0.5 * size);
+		x[1] = (int)(pCmpRelPrnt.getX() + this.getLocation()[0] + this.getSize());
+		x[2] = (int)(pCmpRelPrnt.getX() + this.getLocation()[0] + 0.5 * this.getSize());
 		
-		y[0] = (int)(pCmpRelPrnt.getX() + this.getLocation()[1] + size);
-		y[0] = (int)(pCmpRelPrnt.getX() + this.getLocation()[1] + size);
-		y[0] = (int)(pCmpRelPrnt.getX() + this.getLocation()[1]);
+		y[0] = (int)(pCmpRelPrnt.getY() + this.getLocation()[1] + this.getSize());
+		y[1] = (int)(pCmpRelPrnt.getY() + this.getLocation()[1] + this.getSize());
+		y[2] = (int)(pCmpRelPrnt.getY() + this.getLocation()[1]);
 		
-		g.setColor(color);
+		g.setColor(this.getColor());
 		g.fillPolygon(x, y, 3);
-		g.drawPolygon(x, y, 3); // draw triangle
+		g.drawPolygon(x, y, 3); // draw triangle	
 		
-		
-		
+		int stringWidth = g.getFont().stringWidth(Integer.toString(sequenceNumber));
+		 
+		g.setColor(ColorUtil.BLACK);
+		g.drawString(Integer.toString(sequenceNumber), 
+				(int)(pCmpRelPrnt.getX() + this.getLocation()[0] + 0.5 * this.getSize() - stringWidth / 2),
+				(int)(pCmpRelPrnt.getY() + this.getLocation()[1] + 0.5 * this.getSize())); 
 	}
 
 }
