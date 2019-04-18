@@ -48,8 +48,6 @@ public class GameWorld extends Observable implements IGameWorld {
 			exit();
 		}
 		
-		Graphics g = getGraphics();
-		
 		float[] mapResolution = Game.getMapResolution();
 		float[] location = {(float) (0.25 * mapResolution[0]), (float) (0.25 * mapResolution[1])};
 		playerRobot = new Robot(location);

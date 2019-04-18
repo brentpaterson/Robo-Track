@@ -38,17 +38,12 @@ public class Game extends Form implements Runnable {
 	private ScoreView sv;
 	private Container westContainer, eastContainer, southContainer;
 	private Button accelerateButton, turnLeft, turnRight, changeStrats, 
-			brake, collideNPR, collideBase, collideES, collideDrone, tick;
+			brake;
 	
 	// commands
 	private AccelerateCommand accelerateCommand;
 	private BrakeCommand brakeCommand;
 	private ChangeStratsCommand changeStratsCommand;
-	private CollideBaseCommand collideBaseCommand;
-	private CollideDroneCommand collideDroneCommand;
-	private CollideESCommand collideESCommand;
-	private CollideNPRCommand collideNPRCommand;
-	private TickCommand tickCommand;
 	private TurnLeftCommand turnLeftCommand;
 	private TurnRightCommand turnRightCommand;
 	private HelpCommand helpCommand;
@@ -99,11 +94,8 @@ public class Game extends Form implements Runnable {
 		westContainer.add(changeStrats);
 		eastContainer.add(brake);
 		eastContainer.add(turnRight);
-		southContainer.add(collideNPR);
-		southContainer.add(collideBase);
-		southContainer.add(collideES);
-		southContainer.add(collideDrone);
-		southContainer.add(tick);
+		//southContainer.add(collideNPR);
+
 		
 		createKeyListeners();
 		
@@ -185,11 +177,7 @@ public class Game extends Form implements Runnable {
 		brake = new Button("Brake");
 		turnRight = new Button("Right");
 		// bottom container buttons
-		collideNPR = new Button("Collide with NPR");
-		collideBase = new Button("Collide with Base");
-		collideES = new Button("Collide with Energy Station");
-		collideDrone = new Button("Collide with Drone");
-		tick = new Button("Tick");
+
 		
 		setButtonCommands();
 		
@@ -198,11 +186,7 @@ public class Game extends Form implements Runnable {
 		setButtonStyles(changeStrats);
 		setButtonStyles(brake);
 		setButtonStyles(turnRight);
-		setButtonStyles(collideNPR);
-		setButtonStyles(collideBase);
-		setButtonStyles(collideES);
-		setButtonStyles(collideDrone);
-		setButtonStyles(tick);
+
 	}
 	
 	public void setButtonCommands() {
@@ -211,11 +195,6 @@ public class Game extends Form implements Runnable {
 		changeStrats.setCommand(changeStratsCommand);
 		brake.setCommand(brakeCommand);
 		turnRight.setCommand(turnRightCommand);
-		collideNPR.setCommand(collideNPRCommand);
-		collideBase.setCommand(collideBaseCommand);
-		collideES.setCommand(collideESCommand);
-		collideDrone.setCommand(collideDroneCommand);
-		tick.setCommand(tickCommand);
 	}
 	
 	public void setButtonStyles(Button b) {
@@ -231,10 +210,6 @@ public class Game extends Form implements Runnable {
 		addKeyListener('b', brakeCommand);
 		addKeyListener('l', turnLeftCommand);
 		addKeyListener('r', turnRightCommand);
-		addKeyListener('c', collideNPRCommand);
-		addKeyListener('e', collideESCommand);
-		addKeyListener('g', collideDroneCommand);
-		addKeyListener('t', tickCommand);
 		
 	}
 	
@@ -244,11 +219,6 @@ public class Game extends Form implements Runnable {
 		changeStratsCommand = new ChangeStratsCommand(gw);
 		brakeCommand = new BrakeCommand(gw);
 		turnRightCommand = new TurnRightCommand(gw);
-		collideNPRCommand = new CollideNPRCommand(gw);
-		collideBaseCommand = new CollideBaseCommand(gw);
-		collideESCommand = new CollideESCommand(gw);
-		collideDroneCommand = new CollideDroneCommand(gw);
-		tickCommand = new TickCommand(gw);
 		helpCommand = new HelpCommand(gw);
 		soundToggleCommand = new SoundToggleCommand(gw);
 		aboutCommand = new AboutCommand(gw);

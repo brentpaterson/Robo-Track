@@ -38,6 +38,7 @@ public class MapView extends Container implements Observer {
 	@Override
 	public void update(Observable observable, Object data) {
 		((GameWorldProxy) observable).displayConsoleMap();
+		
 		this.repaint();
 	}
 
@@ -47,7 +48,6 @@ public class MapView extends Container implements Observer {
 		
 		Point pCmpRelPrnt = new Point(getX(), getY());
 		
-
 		IIterator itr = gw.getIterator();
 		while (itr.hasNext()) {
 			((GameObject) itr.getNext()).draw(g, pCmpRelPrnt);
