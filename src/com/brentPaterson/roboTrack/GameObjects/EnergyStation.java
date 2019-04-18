@@ -2,7 +2,9 @@ package com.brentPaterson.roboTrack.GameObjects;
 import java.util.Random;
 
 import com.brentPaterson.roboTrack.Game;
+import com.codename1.charts.models.Point;
 import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Graphics;
 
 public class EnergyStation extends Fixed {
 	private int capacity;
@@ -36,6 +38,12 @@ public class EnergyStation extends Fixed {
 	
 	public boolean isUsed() {
 		return used;
+	}
+
+	@Override
+	public void draw(Graphics g, Point pCmpRelPrnt) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

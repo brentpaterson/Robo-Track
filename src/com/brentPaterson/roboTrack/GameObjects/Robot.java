@@ -1,6 +1,9 @@
 package com.brentPaterson.roboTrack.GameObjects;
 
+import com.brentPaterson.roboTrack.GameObjects.Interfaces.ISteerable;
+import com.codename1.charts.models.Point;
 import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Graphics;
 
 public class Robot extends Movable implements ISteerable {
 	private int steeringDirection;
@@ -84,5 +87,11 @@ public class Robot extends Movable implements ISteerable {
 	
 	public void decEnergyLevel() {
 		energyLevel -= energyConsumptionRate;
+	}
+
+	@Override
+	public void draw(Graphics g, Point pCmpRelPrnt) {
+		// TODO Auto-generated method stub
+		
 	}
 }

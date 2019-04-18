@@ -3,7 +3,9 @@ package com.brentPaterson.roboTrack.GameObjects;
 import java.util.Random;
 
 import com.brentPaterson.roboTrack.Game;
+import com.codename1.charts.models.Point;
 import com.codename1.charts.util.ColorUtil;
+import com.codename1.ui.Graphics;
 
 public class Drone extends Movable {
 
@@ -25,6 +27,12 @@ public class Drone extends Movable {
 	public void updateHeading() {
 		Random rand = new Random();
 		heading += (rand.nextInt(11) - 5);
+	}
+
+	@Override
+	public void draw(Graphics g, Point pCmpRelPrnt) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

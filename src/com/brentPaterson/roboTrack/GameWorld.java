@@ -13,7 +13,6 @@ import com.brentPaterson.roboTrack.GameWorldProxy.GameWorldProxy;
 import com.brentPaterson.roboTrack.GameWorldProxy.IGameWorld;
 import com.codename1.charts.util.ColorUtil;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.Vector; 

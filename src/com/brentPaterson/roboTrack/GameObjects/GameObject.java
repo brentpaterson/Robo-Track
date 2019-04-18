@@ -1,6 +1,8 @@
 package com.brentPaterson.roboTrack.GameObjects;
 
-public abstract class GameObject {
+import com.brentPaterson.roboTrack.GameObjects.Interfaces.IDrawable;
+
+public abstract class GameObject implements IDrawable {
 	protected int size;
 	protected float location[];
 	protected int color;
