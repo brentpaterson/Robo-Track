@@ -20,6 +20,10 @@ public class GameObjectCollection {
 		return theCollection.remove(o);
 	}
 	
+	public void clear() {
+		theCollection.clear();
+	}
+	
 	public IIterator getIterator() {
 		return new GameObjectIterator();
 	}

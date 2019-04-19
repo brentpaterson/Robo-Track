@@ -29,9 +29,7 @@ public class GameWorld extends Observable implements IGameWorld {
 	
 	// game objects
 	private Robot playerRobot;
-	
 	private GameObjectCollection gameObjects = new GameObjectCollection();
-	
 	private Vector<Observer> myObserverList = new Vector<Observer>();
 	
 	public GameWorld() {
@@ -42,38 +40,50 @@ public class GameWorld extends Observable implements IGameWorld {
 		tickRate = 20;
 	}
 	
+	/*********************************************************
+	 * 
+	 * Start Function
+	 * 
+	 *********************************************************/
+	
 	public void init() {
 		if (lives <= 0) {
 			System.out.println("completely out of lives. Exiting program");
 			exit();
 		}
 		
+		GameWorldProxy proxy = new GameWorldProxy(this);
+		
 		float[] mapResolution = Game.getMapResolution();
 		float[] location = {(float) (0.25 * mapResolution[0]), (float) (0.25 * mapResolution[1])};
-		playerRobot = new Robot(location);
+		playerRobot = new Robot(location, proxy);
 		gameObjects.add(playerRobot);
-		gameObjects.add(new Base(1, location));
+		gameObjects.add(new Base(1, location, proxy));
 		location[0] = (float) (0.15 * mapResolution[0]);
 		location[1] = (float) (0.80 * mapResolution[1]);
-		gameObjects.add(new Base(2, location));
+		gameObjects.add(new Base(2, location, proxy));
 		location[0] = (float) (0.75 * mapResolution[0]);
 		location[1] = (float) (0.75 * mapResolution[1]);
-		gameObjects.add(new Base(3, location));
+		gameObjects.add(new Base(3, location, proxy));
 		location[0] = (float) (0.85 * mapResolution[0]);
 		location[1] = (float) (0.30 * mapResolution[1]);
-		gameObjects.add(new Base(4, location));
-		gameObjects.add(new Drone());
-		gameObjects.add(new Drone());
-		gameObjects.add(new EnergyStation());
-		gameObjects.add(new EnergyStation());
-		
-		GameWorldProxy proxy = new GameWorldProxy(this);
+		gameObjects.add(new Base(4, location, proxy));
+		gameObjects.add(new Drone(proxy));
+		gameObjects.add(new Drone(proxy));
+		gameObjects.add(new EnergyStation(proxy));
+		gameObjects.add(new EnergyStation(proxy));		
 		
 		gameObjects.add(new NonPlayerRobot(proxy));
 		gameObjects.add(new NonPlayerRobot(proxy));
 		
 		notifyObservers();
 	}
+	
+	/*********************************************************
+	 * 
+	 * button Functions
+	 * 
+	 *********************************************************/
 
 	public void accelerate() {
 		playerRobot.accelerate();
@@ -84,19 +94,86 @@ public class GameWorld extends Observable implements IGameWorld {
 	}
 	
 	public void turnLeft() {
-		playerRobot.changeDirection(-5);
+		playerRobot.changeDirection(-15);
 	}
 	
 	public void turnRight() {
-		playerRobot.changeDirection(5);
+		playerRobot.changeDirection(15);
+	}
+	
+	
+	/*********************************************************
+	 * 
+	 * Collision handling Functions
+	 * 
+	 *********************************************************/
+	
+	public void collideWithRobot(GameObject obj, GameObject otherObj) {
+		if (obj instanceof Movable) {
+			((Movable) obj).bounce();
+			if (obj instanceof Robot) {
+				((Robot) obj).changeDirection(0);
+				((Robot) obj).takeDamage(25);
+			}
+		}
+		
+		if (otherObj instanceof Movable) {
+			((Movable) otherObj).bounce();
+			if (otherObj instanceof Robot) {
+				((Robot) otherObj).changeDirection(0);
+				((Robot) otherObj).takeDamage(25);
+			}
+		}
+		
+		if (obj instanceof Base) {
+			this.collideWithBase(otherObj, obj);
+		}
+		if (obj instanceof EnergyStation) {
+			this.collideWithEnergyStation(otherObj, obj);
+		}
+	}
+	
+	public void collideWithBase(GameObject obj, GameObject otherObj) {
+		if (obj instanceof Robot) {
+			if (((Robot) obj).getLastBaseReached() == ((Base) otherObj).getSeqNum() - 1)
+				((Robot) obj).incLastBaseReached();
+		}
+		
+	}
+	
+	public void collideWithDrone(GameObject obj, GameObject otherObj) {
+		if (obj instanceof Robot) {
+			this.collideWithRobot(otherObj, obj);
+		}
+	}
+	
+	public void collideWithEnergyStation(GameObject obj, GameObject otherObj) {
+		if (obj instanceof Robot && !((EnergyStation) otherObj).isUsed()) {
+			((Robot) obj).incEnergyLevel(((EnergyStation) otherObj).useStation());
+			
+		}
+	}
+	
+	
+	/*********************************************************
+	 * 
+	 * Tick Functions
+	 * 
+	 *********************************************************/
+	
+	public void death() {
+		System.out.println("GAME OVER loser");
+		lives--;
+		
+		gameObjects.clear();	
+		
+		init();
 	}
 	
 	public void tick() {
 		// game over??
 		if (playerRobot.getDamageLevel() >= 100 || playerRobot.getEnergyLevel() <= 0 || playerRobot.getMaxSpeed() <= 0) {
-			System.out.println("GAME OVER loser");
-			lives--;
-			init();
+			death();
 		}
 		
 		playerRobot.updateHeading();
@@ -215,7 +292,13 @@ public class GameWorld extends Observable implements IGameWorld {
 		notifyObservers();
 	}
 	
-	// getters for view
+	/*********************************************************
+	 * 
+	 * Getters for view Functions
+	 * 
+	 *********************************************************/
+	
+	
 	public int getLives() {
 		return lives;
 	}
@@ -240,18 +323,15 @@ public class GameWorld extends Observable implements IGameWorld {
 		return playerRobot;
 	}
 
-	@Override
 	public IIterator getIterator() {
 		return gameObjects.getIterator();
 	}
 
-	@Override
 	public void addGameObject(GameObject o) {
 		gameObjects.add(o);
 		
 	}
 
-	@Override
 	public boolean removeGameObject(GameObject o) {
 		return gameObjects.remove(o);
 	}
@@ -267,7 +347,11 @@ public class GameWorld extends Observable implements IGameWorld {
 		}
 	}
 	
-	// sound methods
+	/*********************************************************
+	 * 
+	 * Sound Functions
+	 * 
+	 *********************************************************/
 	
 	public void chargeUpSound() {
 		if (soundStatus) {

@@ -1,6 +1,7 @@
 package com.brentPaterson.roboTrack.GameObjects;
 
 import com.brentPaterson.roboTrack.GameObjects.Interfaces.ISteerable;
+import com.brentPaterson.roboTrack.GameWorldProxy.GameWorldProxy;
 import com.codename1.charts.models.Point;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
@@ -13,8 +14,9 @@ public class Robot extends Movable implements ISteerable {
 	private int damageLevel;
 	private int lastBaseReached;
 
+	private GameWorldProxy gw;
 	
-	public Robot(float[] initialLocation) {
+	public Robot(float[] initialLocation, GameWorldProxy gw) {
 		location = new float[2];
 		location[0] = initialLocation[0];
 		location[1] = initialLocation[1];
@@ -24,13 +26,15 @@ public class Robot extends Movable implements ISteerable {
 		
 		steeringDirection = 0;
 		maximumSpeed = 50;
-		energyLevel = 50;
+		energyLevel = 500;
 		energyConsumptionRate = 1;
 		damageLevel = 0;
 		lastBaseReached = 1;
 		
 		heading = 0;
 		speed = 1;
+		
+		this.gw = gw;
 	}
 	
 	public Robot() {

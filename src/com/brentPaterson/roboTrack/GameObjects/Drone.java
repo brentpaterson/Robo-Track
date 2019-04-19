@@ -3,14 +3,15 @@ package com.brentPaterson.roboTrack.GameObjects;
 import java.util.Random;
 
 import com.brentPaterson.roboTrack.Game;
+import com.brentPaterson.roboTrack.GameWorldProxy.GameWorldProxy;
 import com.codename1.charts.models.Point;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
 
 public class Drone extends Movable {
+	private GameWorldProxy gw;
 
-
-	public Drone() {
+	public Drone(GameWorldProxy gw) {
 		Random rand = new Random();
 		location = new float[2];
 		
@@ -22,6 +23,8 @@ public class Drone extends Movable {
 		
 		speed = rand.nextInt(5) + 1;
 		heading = rand.nextInt(360);
+		
+		this.gw = gw;
 	}
 	 
 	public void updateHeading() {

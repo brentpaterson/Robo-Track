@@ -152,7 +152,7 @@ public class Game extends Form implements Runnable {
 		timer.schedule(gw.getTickRate(), true, this); 
 		paused = false;
 		bgsound = new BGSound("Milkomeda.wav");
-		//bgsound.play();
+		bgsound.play();
 		
 		this.show();
 		rangeX = mv.getWidth();
@@ -162,7 +162,6 @@ public class Game extends Form implements Runnable {
 		gw.init();
 	}
 	
-	@Override
 	public void run() {
 		gw.tick();
 		

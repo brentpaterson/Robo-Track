@@ -2,6 +2,7 @@ package com.brentPaterson.roboTrack.GameObjects;
 import java.util.Random;
 
 import com.brentPaterson.roboTrack.Game;
+import com.brentPaterson.roboTrack.GameWorldProxy.GameWorldProxy;
 import com.codename1.charts.models.Point;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
@@ -10,7 +11,9 @@ public class EnergyStation extends Fixed {
 	private int capacity;
 	private boolean used;
 	
-	public EnergyStation() {
+	private GameWorldProxy gw;
+	
+	public EnergyStation(GameWorldProxy gw) {
 		Random rand = new Random();
 		location = new float[2];
 		
@@ -19,8 +22,10 @@ public class EnergyStation extends Fixed {
 		location[1] = (float) rand.nextInt((int) Game.getMapResolution()[1] - size) +  (float) size / 2;
 		
 		color = ColorUtil.GREEN;
-		capacity = size;
+		capacity = size * 10;
 		used = false;
+		
+		this.gw = gw;
 	}
 	
 	public int useStation() {

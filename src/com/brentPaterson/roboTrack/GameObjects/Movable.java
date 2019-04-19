@@ -26,4 +26,10 @@ public abstract class Movable extends GameObject {
 	public int getSpeed() {
 		return speed;
 	}
+	
+	public void bounce() {
+		heading += 180;
+		if (heading > 360)
+			heading -= 360;
+	}
 }

@@ -3,6 +3,7 @@ package com.brentPaterson.roboTrack.GameObjects;
 import java.util.Vector;
 
 import com.brentPaterson.roboTrack.GameObjects.Interfaces.ICollider;
+import com.brentPaterson.roboTrack.GameWorldProxy.GameWorldProxy;
 import com.codename1.charts.models.Point;
 import com.codename1.charts.util.ColorUtil;
 import com.codename1.ui.Graphics;
@@ -10,7 +11,9 @@ import com.codename1.ui.Graphics;
 public class Base extends Fixed {
 	private int sequenceNumber;
 	
-	public Base(int sequenceNumber, float[] locationInput) {
+	private GameWorldProxy gw;
+	
+	public Base(int sequenceNumber, float[] locationInput, GameWorldProxy gw) {
 		size = 100;
 		color = ColorUtil.LTGRAY;
 		this.sequenceNumber = sequenceNumber;
@@ -18,6 +21,8 @@ public class Base extends Fixed {
 		location[0] = locationInput[0];
 		location[1] = locationInput[1];
 		collidingObjects = new Vector<>();
+		
+		this.gw = gw;
 	}
 	
 	public int getSeqNum() {
